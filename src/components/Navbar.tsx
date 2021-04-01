@@ -1,4 +1,6 @@
 import NextLink from 'next/link';
+import { useAuth } from 'lib/auth';
+import { useDocument, useCollection } from '@nandorojo/swr-firestore';
 import {
   Box,
   Button,
@@ -16,14 +18,14 @@ import {
   AvatarBadge,
 } from '@chakra-ui/react';
 import { LoginButtons } from 'components/index';
-import useSWR from 'swr';
-// import fetcher from 'utils/fetcher';
-import { useAuth } from 'lib/auth';
 
 export const Navbar = () => {
   const { user, signout } = useAuth();
 
-  // const { data: userData } = useSWR(`/api/user/${user?.uid}`, fetcher);
+  // Get User Data
+  const { data: userData } = useDocument<any>(`users/${user?.uid}`, {
+    listen: false,
+  });
 
   return (
     <>
@@ -123,10 +125,8 @@ export const Navbar = () => {
                   <MenuButton mr={0} pr={0}>
                     <Avatar
                       size="sm"
-                      // src={userData?.user.photoUrl}
-                      // name={
-                      //   userData?.user.firstName + ' ' + userData?.user.lastName
-                      // }
+                      src={userData?.photoUrl}
+                      name={userData?.name}
                     />
                   </MenuButton>
                   <MenuList>
@@ -168,36 +168,11 @@ export const Navbar = () => {
                       fontSize="1em"
                       fontWeight="600"
                     >
-                      {/* <MenuItem>
-                      <NextLink href={`/user/profile/${user?.uid}`}>
-                        View Profile
-                      </NextLink>
-                    </MenuItem> */}
-
                       <MenuItem>
                         <NextLink href="/dashboard/edit-user">
                           Edit User Profile
                         </NextLink>
                       </MenuItem>
-
-                      {/* {isOrganization(userData) && (
-                        <MenuItem>
-                          <NextLink href={`/dashboard/edit-company`} passHref>
-                            Edit Organization Profile
-                          </NextLink>
-                        </MenuItem>
-                      )}
-
-                      {isExhibitor(userData) && (
-                        <MenuItem>
-                          <NextLink
-                            href={`/dashboard/edit-exhibitor-company`}
-                            passHref
-                          >
-                            Edit Company Profile
-                          </NextLink>
-                        </MenuItem>
-                      )} */}
                     </MenuGroup>
 
                     <MenuGroup

@@ -68,59 +68,12 @@ export function truncateString(str, num) {
 }
 
 // TODO: This and the one below should be combined at some point. This is used for Team Members Admin
-export function userRoleCheckMap(user) {
-  if (user?._organization_admin) {
-    return 'ORGANIZATION_ADMIN';
-  }
-  if (user?._organization_team_member) {
-    return 'ORGANIZATION_TEAM_MEMBER';
-  }
-  if (user?._exhibitor_admin) {
-    return 'EXHIBITOR_ADMIN';
-  }
-  if (user?._exhibitor_team_member) {
-    return 'EXHIBITOR_TEAM_MEMBER';
-  }
-  if (user?._participant) {
-    return 'PARTICIPANT';
-  }
-}
-
-// Get user role type - not sure this is useful yet, but we need to have a way to check the roles and show the human readable type somehow
-export function userRoleCheck(user) {
-  if (user?.user._organization_admin) {
-    return 'ORGANIZATION_ADMIN';
-  }
-  if (user?.user._organization_team_member) {
-    return 'ORGANIZATION_TEAM_MEMBER';
-  }
-  if (user?.user._exhibitor_admin) {
-    return 'EXHIBITOR_ADMIN';
-  }
-  if (user?.user._exhibitor_team_member) {
-    return 'EXHIBITOR_TEAM_MEMBER';
-  }
-  if (user?.user._participant) {
-    return 'PARTICIPANT';
-  }
-}
-
-// Check users roles
-export function isOrganization(user) {
-  if (user?.user._organization_admin || user?.user._organization_team_member) {
-    return true;
-  }
-}
-// Check users roles
-export function isExhibitor(user) {
-  if (user?.user._exhibitor_admin || user?.user._exhibitor_team_member) {
-    return true;
-  }
-}
-// Check users roles
-export function isParticipant(user) {
-  if (user?.user._participant) {
-    return true;
+export function userProviderCheck(user) {
+  switch (user?.provider) {
+    case 'google.com':
+      return 'GOOGLE';
+    case 'yahoo.com':
+      return 'YAHOO';
   }
 }
 

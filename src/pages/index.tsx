@@ -25,7 +25,7 @@ const Home: React.FC = () => {
           WELCOME!
         </Heading>
         <Text textAlign={['center', 'center', 'center', 'center']}>
-          Place your bets!
+          The world's first peer to peer bookie platform
         </Text>
       </Container>
     </Layout>

@@ -13,195 +13,175 @@ import {
 // import AppLink from 'next/link';
 import { AppLink } from 'components/AppLink';
 import { useRouter } from 'next/router';
-import { isOrganization, isExhibitor, isParticipant } from 'helpers/index';
+import { userProviderCheck } from 'helpers/index';
 import NextLink from 'next/link';
 export interface DashboardNavProps {
-  events?: Event[];
-  userData?: any;
+  bets?: Bets[];
   organizationId?: string;
   exhibitorId?: string;
 }
 
-export interface Event {
+export interface Bets {
   id: string;
-  eventEndDate: EventDates;
+  betStartDate: BetDates;
   modifiedAt: string;
-  eventDescription: string;
-  eventName: string;
-  eventStartDate: EventDates;
+  betDescription: string;
+  betName: string;
+  betEndDate: BetDates;
   userId: string;
 }
 
-export interface EventDates {
+export interface BetDates {
   _seconds: number;
   _nanoseconds: number;
 }
 
-export const DashboardNav: React.FC<DashboardNavProps> = (props) => {
+export const DashboardNav: React.FC<DashboardNavProps> = () => {
   const router = useRouter();
-  const { events, organizationId, exhibitorId, userData } = props;
 
   return (
     <Accordion defaultIndex={[0]}>
-      {isParticipant(userData) && (
-        <AccordionItem border={0}>
-          <AccordionButton _expanded={{ bg: 'green.500', color: 'white' }}>
-            <Box flex="1" textAlign="left">
-              My Profile
-            </Box>
-            <AccordionIcon />
-          </AccordionButton>
-          <AccordionPanel pb={4}>
-            <List spacing={3}>
-              <ListItem>
-                <AppLink href="/dashboard" className="">
-                  <a style={{ textDecoration: 'underlined' }}>Dashboard Home</a>
-                </AppLink>
-              </ListItem>
-              <ListItem>
-                <AppLink href="/dashboard/edit-user" className="">
-                  <a style={{ textDecoration: 'underlined' }}>
-                    Edit My Profile
-                  </a>
-                </AppLink>
-              </ListItem>
-              <ListItem>
-                <AppLink href="/dashboard/my-education" className="">
-                  <a style={{ textDecoration: 'underlined' }}>My Education</a>
-                </AppLink>
-              </ListItem>
-              <ListItem>
-                <AppLink href="/dashboard/my-documents" className="">
-                  <a style={{ textDecoration: 'underlined' }}>My Documents</a>
-                </AppLink>
-              </ListItem>
-              <ListItem>
-                <AppLink href="/dashboard/my-work-experience" className="">
-                  <a style={{ textDecoration: 'underlined' }}>
-                    My Work Experience
-                  </a>
-                </AppLink>
-              </ListItem>
+      <AccordionItem border={0}>
+        <AccordionButton _expanded={{ bg: 'green.500', color: 'white' }}>
+          <Box flex="1" textAlign="left">
+            My Profile
+          </Box>
+          <AccordionIcon />
+        </AccordionButton>
+        <AccordionPanel pb={4}>
+          <List spacing={3}>
+            <ListItem>
+              <AppLink href="/dashboard" className="">
+                <a style={{ textDecoration: 'underlined' }}>Dashboard Home</a>
+              </AppLink>
+            </ListItem>
+            <ListItem>
+              <AppLink href="/dashboard/edit-user" className="">
+                <a style={{ textDecoration: 'underlined' }}>Edit My Profile</a>
+              </AppLink>
+            </ListItem>
+            <ListItem>
+              <AppLink href="/dashboard/my-education" className="">
+                <a style={{ textDecoration: 'underlined' }}>My Education</a>
+              </AppLink>
+            </ListItem>
+            <ListItem>
+              <AppLink href="/dashboard/my-documents" className="">
+                <a style={{ textDecoration: 'underlined' }}>My Documents</a>
+              </AppLink>
+            </ListItem>
+            <ListItem>
+              <AppLink href="/dashboard/my-work-experience" className="">
+                <a style={{ textDecoration: 'underlined' }}>
+                  My Work Experience
+                </a>
+              </AppLink>
+            </ListItem>
 
-              {/* <ListItem>
+            {/* <ListItem>
                 <AppLink href="/dashboard/my-events" className="">
                   <a style={{ textDecoration: 'underlined' }}>My Events</a>
                 </AppLink>
               </ListItem> */}
-            </List>
-          </AccordionPanel>
-        </AccordionItem>
-      )}
-
-      {isOrganization(userData) && (
-        <AccordionItem border={0}>
-          <AccordionButton _expanded={{ bg: 'green.500', color: 'white' }}>
-            <Box flex="1" textAlign="left">
-              Home
-            </Box>
-            <AccordionIcon />
-          </AccordionButton>
-          <AccordionPanel pb={4}>
-            <List spacing={3}>
-              <ListItem>
-                <AppLink href="/dashboard/manage-participants" className="">
-                  <a style={{ textDecoration: 'underlined' }}>Participants</a>
-                </AppLink>
-              </ListItem>
-              <ListItem>
-                <AppLink
-                  href={`/dashboard/manage-exhibitors/${organizationId}`}
-                  className=""
-                >
-                  <a style={{ textDecoration: 'underlined' }}>Exhibitors</a>
-                </AppLink>
-              </ListItem>
-              {/* <ListItem>
-                <AppLink href="/dashboard/manage-jobs" className="">
-                  <a style={{ textDecoration: 'underlined' }}>Jobs</a>
-                </AppLink>
-              </ListItem> */}
-              <ListItem>
-                <AppLink href="/dashboard/my-events" className="">
-                  <a style={{ textDecoration: 'underlined' }}>Virtual Events</a>
-                </AppLink>
-              </ListItem>
-
-              <ListItem>
-                <AppLink href="#" className="">
-                  <a style={{ textDecoration: 'underlined' }}>Lists</a>
-                </AppLink>
-              </ListItem>
-
-              <ListItem>
-                <AppLink
-                  href={`/dashboard/manage-organization-team/${organizationId}`}
-                  className=""
-                >
-                  <a style={{ textDecoration: 'underlined' }}>Team</a>
-                </AppLink>
-              </ListItem>
-
-              <ListItem>
-                <AppLink href="/dashboard/manage-webinars" className="">
-                  <a style={{ textDecoration: 'underlined' }}>Webinars</a>
-                </AppLink>
-              </ListItem>
-
-              <ListItem>
-                <AppLink href="/dashboard/edit-company" className="">
-                  <a style={{ textDecoration: 'underlined' }}>
-                    Organization Profile
-                  </a>
-                </AppLink>
-              </ListItem>
-            </List>
-          </AccordionPanel>
-        </AccordionItem>
-      )}
-
-      {isExhibitor(userData) && (
-        <AccordionItem border={0}>
-          <AccordionButton _expanded={{ bg: 'green.500', color: 'white' }}>
-            <Box flex="1" textAlign="left">
-              Home
-            </Box>
-            <AccordionIcon />
-          </AccordionButton>
-          <AccordionPanel pb={4}>
-            <List spacing={3}>
-              <ListItem>
-                <AppLink
-                  href={`/dashboard/edit-exhibitor-company`}
-                  className=""
-                >
-                  <a style={{ textDecoration: 'underlined' }}>
-                    Company Profile
-                  </a>
-                </AppLink>
-              </ListItem>
-              <ListItem>
-                <AppLink
-                  href={`/dashboard/manage-exhibitor-team/${organizationId}/${exhibitorId}`}
-                  className=""
-                >
-                  <a style={{ textDecoration: 'underlined' }}>Team</a>
-                </AppLink>
-              </ListItem>
-              <ListItem>
-                <AppLink href="/dashboard/manage-jobs" className="">
-                  <a style={{ textDecoration: 'underlined' }}>Jobs</a>
-                </AppLink>
-              </ListItem>
-            </List>
-          </AccordionPanel>
-        </AccordionItem>
-      )}
+          </List>
+        </AccordionPanel>
+      </AccordionItem>
 
       <AccordionItem border={0}>
         <AccordionButton _expanded={{ bg: 'green.500', color: 'white' }}>
           <Box flex="1" textAlign="left">
-            Virtual Events ({events?.length})
+            Home
+          </Box>
+          <AccordionIcon />
+        </AccordionButton>
+        <AccordionPanel pb={4}>
+          <List spacing={3}>
+            <ListItem>
+              <AppLink href="/dashboard/manage-participants" className="">
+                <a style={{ textDecoration: 'underlined' }}>Participants</a>
+              </AppLink>
+            </ListItem>
+            <ListItem>
+              <AppLink href={`/dashboard/manage-exhibitors`} className="">
+                <a style={{ textDecoration: 'underlined' }}>Exhibitors</a>
+              </AppLink>
+            </ListItem>
+            {/* <ListItem>
+                <AppLink href="/dashboard/manage-jobs" className="">
+                  <a style={{ textDecoration: 'underlined' }}>Jobs</a>
+                </AppLink>
+              </ListItem> */}
+            <ListItem>
+              <AppLink href="/dashboard/my-events" className="">
+                <a style={{ textDecoration: 'underlined' }}>Virtual Events</a>
+              </AppLink>
+            </ListItem>
+
+            <ListItem>
+              <AppLink href="#" className="">
+                <a style={{ textDecoration: 'underlined' }}>Lists</a>
+              </AppLink>
+            </ListItem>
+
+            <ListItem>
+              <AppLink
+                href={`/dashboard/manage-organization-team/`}
+                className=""
+              >
+                <a style={{ textDecoration: 'underlined' }}>Team</a>
+              </AppLink>
+            </ListItem>
+
+            <ListItem>
+              <AppLink href="/dashboard/manage-webinars" className="">
+                <a style={{ textDecoration: 'underlined' }}>Webinars</a>
+              </AppLink>
+            </ListItem>
+
+            <ListItem>
+              <AppLink href="/dashboard/edit-company" className="">
+                <a style={{ textDecoration: 'underlined' }}>
+                  Organization Profile
+                </a>
+              </AppLink>
+            </ListItem>
+          </List>
+        </AccordionPanel>
+      </AccordionItem>
+
+      <AccordionItem border={0}>
+        <AccordionButton _expanded={{ bg: 'green.500', color: 'white' }}>
+          <Box flex="1" textAlign="left">
+            Home
+          </Box>
+          <AccordionIcon />
+        </AccordionButton>
+        <AccordionPanel pb={4}>
+          <List spacing={3}>
+            <ListItem>
+              <AppLink href={`/dashboard/edit-exhibitor-company`} className="">
+                <a style={{ textDecoration: 'underlined' }}>Company Profile</a>
+              </AppLink>
+            </ListItem>
+            <ListItem>
+              <AppLink href={`/dashboard/manage-exhibitor-team`} className="">
+                <a style={{ textDecoration: 'underlined' }}>Team</a>
+              </AppLink>
+            </ListItem>
+            <ListItem>
+              <AppLink href="/dashboard/manage-jobs" className="">
+                <a style={{ textDecoration: 'underlined' }}>Jobs</a>
+              </AppLink>
+            </ListItem>
+          </List>
+        </AccordionPanel>
+      </AccordionItem>
+
+      <AccordionItem border={0}>
+        <AccordionButton _expanded={{ bg: 'green.500', color: 'white' }}>
+          <Box flex="1" textAlign="left">
+            {/* Virtual Events ({events?.length}) */}
+            Bets
           </Box>
           <AccordionIcon />
         </AccordionButton>
@@ -209,23 +189,20 @@ export const DashboardNav: React.FC<DashboardNavProps> = (props) => {
           <List spacing={3}>
             <ListItem>
               <AppLink href="/dashboard/virtual-events" className="">
-                <a style={{ textDecoration: 'underlined' }}>Virtual Events</a>
+                <a style={{ textDecoration: 'underlined' }}>Bets</a>
               </AppLink>
             </ListItem>
 
-            {isOrganization(userData) ||
-              (isParticipant(userData) && (
-                <ListItem>
-                  <AppLink
-                    href="/dashboard/virtual-events/event/7PTERItFA2FkYVL8oD2j/jobs"
-                    className=""
-                  >
-                    <a style={{ textDecoration: 'underlined' }}>Jobs</a>
-                  </AppLink>
-                </ListItem>
-              ))}
+            <ListItem>
+              <AppLink
+                href="/dashboard/virtual-events/event/7PTERItFA2FkYVL8oD2j/jobs"
+                className=""
+              >
+                <a style={{ textDecoration: 'underlined' }}>Jobs</a>
+              </AppLink>
+            </ListItem>
 
-            {events?.length > 0 ? (
+            {/* {events?.length > 0 ? (
               events?.map((event) => {
                 return (
                   <ListItem key={event.id}>
@@ -245,36 +222,6 @@ export const DashboardNav: React.FC<DashboardNavProps> = (props) => {
                             {event.eventName}
                           </NextLink>
                         </Text>
-
-                        {/* <Text py={2} fontWeight="bold">
-                      <NextLink
-                        href={`/dashboard/virtual-events/event/${event.id}`}
-                      >
-                        {event.eventName}
-                      </NextLink>
-                    </Text> */}
-
-                        {/* <Box align="right">
-                      <Button
-                        onClick={() =>
-                          router.push(
-                            `/dashboard/virtual-events/event/${event.id}`,
-                          )
-                        }
-                        type="button"
-                        size="xs"
-                        backgroundColor="green.400"
-                        color="white"
-                        fontWeight="medium"
-                        _hover={{ bg: 'green.500', color: 'black' }}
-                        _active={{
-                          bg: 'green.500',
-                          transform: 'scale(0.95)',
-                        }}
-                      >
-                       ATTEND
-                      </Button>
-                    </Box> */}
 
                         <Text>
                           {' '}
@@ -317,7 +264,7 @@ export const DashboardNav: React.FC<DashboardNavProps> = (props) => {
               })
             ) : (
               <Text>No upcoming events found</Text>
-            )}
+            )} */}
           </List>
         </AccordionPanel>
       </AccordionItem>

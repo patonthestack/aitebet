@@ -12,17 +12,18 @@ import {
   SimpleGrid,
   Avatar,
 } from '@chakra-ui/react';
-import {
-  userRoleCheck,
-  isOrganization,
-  isExhibitor,
-  isParticipant,
-} from 'helpers/index';
+import { userProviderCheck } from 'helpers/index';
 import NextLink from 'next/link';
+import { useDocument, useCollection } from '@nandorojo/swr-firestore';
 
 const DashboardIndex: React.FC = () => {
   const { user } = useAuth(); // firebase authentication
   const router = useRouter();
+
+  // GET userData
+  const { data: userData } = useDocument<any>(`users/${user?.uid}`, {
+    listen: false,
+  });
 
   // check auth
   useEffect(() => {
@@ -142,7 +143,7 @@ const DashboardIndex: React.FC = () => {
                         spacing={2}
                       >
                         <Button
-                          colorScheme="green"
+                          colorScheme="blue"
                           variant="outline"
                           onClick={() =>
                             router
@@ -181,10 +182,10 @@ const DashboardIndex: React.FC = () => {
                         fontFamily="heading"
                         pb={4}
                       >
-                        MY BOOKS
+                        LIVE SCHEDULES
                       </Heading>
                       <Text fontSize="md" px={5} textAlign="center">
-                        Manage your books here
+                        View sports schedules here
                       </Text>
                     </Flex>
                     <Stack ml={4} shouldWrapChildren mt={4} mr={4}>
@@ -195,15 +196,15 @@ const DashboardIndex: React.FC = () => {
                         spacing={2}
                       >
                         <Button
-                          colorScheme="green"
+                          colorScheme="blue"
                           variant="outline"
                           onClick={() =>
                             router
-                              .push('/dashboard/my-books')
+                              .push('/dashboard/sports-schedules')
                               .then(() => window.scrollTo(0, 0))
                           }
                         >
-                          MANAGE BOOKS
+                          VIEW SCHEDULES
                         </Button>
                       </Stack>
                     </Stack>
@@ -248,7 +249,7 @@ const DashboardIndex: React.FC = () => {
                         spacing={2}
                       >
                         <Button
-                          colorScheme="green"
+                          colorScheme="blue"
                           variant="outline"
                           onClick={() =>
                             router
@@ -302,7 +303,7 @@ const DashboardIndex: React.FC = () => {
                         direction={['column', 'row']}
                       >
                         <Button
-                          colorScheme="green"
+                          colorScheme="blue"
                           variant="outline"
                           onClick={() =>
                             router
@@ -310,10 +311,10 @@ const DashboardIndex: React.FC = () => {
                               .then(() => window.scrollTo(0, 0))
                           }
                         >
-                          MANAGE MY PROFILE
+                          MANAGE PROFILE
                         </Button>
                         {/* <Button
-                              colorScheme="green"
+                              colorScheme="blue"
                               variant="outline"
                               onClick={() =>
                                 router

@@ -15,3 +15,4 @@ export * from './DashboardNav';
 export * from './AppLink';
 export * from './Card';
 export * from './SkeletonDocumentsTable';
+export * from './UserForm';

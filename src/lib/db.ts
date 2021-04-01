@@ -5,7 +5,10 @@ export function createUser(uid, data) {
   return firestore
     .collection('users')
     .doc(uid)
-    .set({ uid, ...data }, { merge: true });
+    .set(
+      { uid, createdAt: new Date().toISOString(), ...data },
+      { merge: true },
+    );
 }
 
 export function updateUser(uid, data) {
