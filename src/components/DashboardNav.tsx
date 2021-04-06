@@ -42,7 +42,7 @@ export const DashboardNav: React.FC<DashboardNavProps> = () => {
   return (
     <Accordion defaultIndex={[0]}>
       <AccordionItem border={0}>
-        <AccordionButton _expanded={{ bg: 'green.500', color: 'white' }}>
+        <AccordionButton _expanded={{ bg: 'blue.500', color: 'white' }}>
           <Box flex="1" textAlign="left">
             My Profile
           </Box>
@@ -88,97 +88,7 @@ export const DashboardNav: React.FC<DashboardNavProps> = () => {
       </AccordionItem>
 
       <AccordionItem border={0}>
-        <AccordionButton _expanded={{ bg: 'green.500', color: 'white' }}>
-          <Box flex="1" textAlign="left">
-            Home
-          </Box>
-          <AccordionIcon />
-        </AccordionButton>
-        <AccordionPanel pb={4}>
-          <List spacing={3}>
-            <ListItem>
-              <AppLink href="/dashboard/manage-participants" className="">
-                <a style={{ textDecoration: 'underlined' }}>Participants</a>
-              </AppLink>
-            </ListItem>
-            <ListItem>
-              <AppLink href={`/dashboard/manage-exhibitors`} className="">
-                <a style={{ textDecoration: 'underlined' }}>Exhibitors</a>
-              </AppLink>
-            </ListItem>
-            {/* <ListItem>
-                <AppLink href="/dashboard/manage-jobs" className="">
-                  <a style={{ textDecoration: 'underlined' }}>Jobs</a>
-                </AppLink>
-              </ListItem> */}
-            <ListItem>
-              <AppLink href="/dashboard/my-events" className="">
-                <a style={{ textDecoration: 'underlined' }}>Virtual Events</a>
-              </AppLink>
-            </ListItem>
-
-            <ListItem>
-              <AppLink href="#" className="">
-                <a style={{ textDecoration: 'underlined' }}>Lists</a>
-              </AppLink>
-            </ListItem>
-
-            <ListItem>
-              <AppLink
-                href={`/dashboard/manage-organization-team/`}
-                className=""
-              >
-                <a style={{ textDecoration: 'underlined' }}>Team</a>
-              </AppLink>
-            </ListItem>
-
-            <ListItem>
-              <AppLink href="/dashboard/manage-webinars" className="">
-                <a style={{ textDecoration: 'underlined' }}>Webinars</a>
-              </AppLink>
-            </ListItem>
-
-            <ListItem>
-              <AppLink href="/dashboard/edit-company" className="">
-                <a style={{ textDecoration: 'underlined' }}>
-                  Organization Profile
-                </a>
-              </AppLink>
-            </ListItem>
-          </List>
-        </AccordionPanel>
-      </AccordionItem>
-
-      <AccordionItem border={0}>
-        <AccordionButton _expanded={{ bg: 'green.500', color: 'white' }}>
-          <Box flex="1" textAlign="left">
-            Home
-          </Box>
-          <AccordionIcon />
-        </AccordionButton>
-        <AccordionPanel pb={4}>
-          <List spacing={3}>
-            <ListItem>
-              <AppLink href={`/dashboard/edit-exhibitor-company`} className="">
-                <a style={{ textDecoration: 'underlined' }}>Company Profile</a>
-              </AppLink>
-            </ListItem>
-            <ListItem>
-              <AppLink href={`/dashboard/manage-exhibitor-team`} className="">
-                <a style={{ textDecoration: 'underlined' }}>Team</a>
-              </AppLink>
-            </ListItem>
-            <ListItem>
-              <AppLink href="/dashboard/manage-jobs" className="">
-                <a style={{ textDecoration: 'underlined' }}>Jobs</a>
-              </AppLink>
-            </ListItem>
-          </List>
-        </AccordionPanel>
-      </AccordionItem>
-
-      <AccordionItem border={0}>
-        <AccordionButton _expanded={{ bg: 'green.500', color: 'white' }}>
+        <AccordionButton _expanded={{ bg: 'blue.500', color: 'white' }}>
           <Box flex="1" textAlign="left">
             {/* Virtual Events ({events?.length}) */}
             Bets

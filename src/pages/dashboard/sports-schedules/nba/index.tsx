@@ -5,13 +5,14 @@ import { useAuth } from 'lib/auth';
 import { useRequireAuth } from 'lib/useRequireAuth';
 import {
   Box,
-  Button,
   Flex,
   Heading,
-  Text,
   Stack,
   SimpleGrid,
+  List,
+  ListItem,
   Avatar,
+  Link,
 } from '@chakra-ui/react';
 import useSWR from 'swr';
 import fetcher from 'utils/fetcher';
@@ -28,51 +29,32 @@ const NbaIndex: React.FC = () => {
     listen: false,
   });
 
-  const [nbaTeams, setNbaTeams] = useState('');
-  const [nbaSchedule, setNbaSchedule] = useState('');
-
+  // TODO once API keys are retrieved, replae the '1' with API key
   const nbaTeamsUrl =
     'https://www.thesportsdb.com/api/v1/json/1/lookup_all_teams.php?id=4387';
+  // NBA schedule is patreon only on sports DB site
   const nbaScheduleUrl =
     'https://www.thesportsdb.com/api/v1/json/1/eventsnextleague.php?id=4387';
 
-  const { data: nbaTeamsData } = useSWR(`${nbaTeamsUrl}`, fetcher);
-  const { data: nbaScheduleData } = useSWR(nbaScheduleUrl, fetcher);
-  useEffect(() => {
-    const fetchNbaTeams = () => {
-      const { data: nbaTeamsData } = useSWR(nbaTeamsUrl, fetcher);
-      setNbaTeams(nbaTeamsData);
-    };
-    fetchNbaTeams();
-  }, []);
+  const { data: nbaTeamsData } = useSWR<any, any>(`${nbaTeamsUrl}`, fetcher);
 
-  // TODO figure out APIs
+  const { data: nbaScheduleData } = useSWR<any, any>(
+    `${nbaScheduleUrl}`,
+    fetcher,
+  );
 
   console.log('nbaTeamsData: ', nbaTeamsData);
-  console.log('nbaTeams: ', nbaTeams);
-
-  // useEffect(() => {
-  //   const fetchNbaSchedule = async () => {
-  //     const result = await axios(nbaScheduleUrl);
-  //     setNbaSchedule(result.data);
-  //   };
-  //   fetchNbaSchedule();
-  // }, []);
-
-  console.log('nbaSchedule: ', nbaScheduleData);
+  // console.log('nbaScheduleData: ', nbaScheduleData);
 
   return (
     <>
       {user && (
         <Layout
-          title="Sports Schedules"
-          description="Sports Schedules"
-          canonical="/sports-schedules"
+          title="NBA Schedule"
+          description="NBA Schedule"
+          canonical="/dashboard/sports-schedules/nba"
           hasNavbar
           hasFooter
-          schemaData={null}
-          // isActive={userData?.user._isActive}
-          // isBanned={userData?.user._isBanned}
         >
           <Flex>
             <Box
@@ -81,7 +63,7 @@ const NbaIndex: React.FC = () => {
               display={['none', 'none', 'block']}
               top="60px"
               h="100%"
-              bg="green.300"
+              bg="blue.300"
             >
               <DashboardNav />
             </Box>
@@ -110,6 +92,58 @@ const NbaIndex: React.FC = () => {
                 justifyContent="center"
                 margin="0 auto"
               >
+                {/* Begin Stack */}
+                <Stack>
+                  <Box
+                    backgroundColor="white"
+                    shadow="md"
+                    borderRadius="lg"
+                    py={5}
+                    mx={4}
+                  >
+                    <Flex
+                      display="flex"
+                      flexDirection="column"
+                      alignItems="center"
+                      justifyContent="center"
+                    >
+                      <Heading
+                        size="md"
+                        as="h2"
+                        lineHeight="shorter"
+                        fontWeight="bold"
+                        fontFamily="heading"
+                        pb={4}
+                      >
+                        NBA Teams
+                      </Heading>
+                      <Box textAlign="center">
+                        <List>
+                          {nbaTeamsData &&
+                            nbaTeamsData.teams.map((team: any) => (
+                              <ListItem key={team.strTeam} mb={2}>
+                                {team.strTeam}
+                                <Box cursor="pointer">
+                                  <Link
+                                    href={`https://${team.strWebsite}`}
+                                    isExternal
+                                  >
+                                    <Avatar
+                                      src={team.strTeamBadge}
+                                      name={team.strTeam}
+                                      size="md"
+                                    />
+                                  </Link>
+                                </Box>
+                              </ListItem>
+                            ))}
+                        </List>
+                      </Box>
+                    </Flex>
+                  </Box>
+                </Stack>
+                {/* End Stack */}
+
                 {/* Begin Stack */}
                 <Stack>
                   <Box

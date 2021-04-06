@@ -52,7 +52,7 @@ const DashboardIndex: React.FC = () => {
               display={['none', 'none', 'block']}
               top="60px"
               h="100%"
-              bg="green.300"
+              bg="blue.300"
             >
               <DashboardNav
               // events={events}

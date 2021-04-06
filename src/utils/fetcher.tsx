@@ -1,11 +1,4 @@
-const fetcher = async (url, token) => {
-  const res = await fetch(url, {
-    method: 'GET',
-    headers: new Headers({ 'Content-Type': 'application/json', token }),
-    credentials: 'same-origin',
-  });
-
-  return res.json();
-};
+// fetcher for 3rd party API calls
+const fetcher = (url: string): any => fetch(url).then((res) => res.json());
 
 export default fetcher;
