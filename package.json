@@ -17,6 +17,7 @@
     "@nandorojo/swr-firestore": "^0.16.0",
     "@next/mdx": "^10.0.9",
     "chakra-ui-autocomplete": "^1.2.6",
+    "date-fns": "^2.19.0",
     "firebase": "^8.3.0",
     "firebase-admin": "^9.5.0",
     "firebase-tools": "^9.7.0",
@@ -31,7 +32,9 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-hook-form": "^6.15.4",
-    "react-select": "^4.3.0"
+    "react-select": "^4.3.0",
+    "react-slick": "^0.28.1",
+    "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
     "@types/react": "^17.0.3",

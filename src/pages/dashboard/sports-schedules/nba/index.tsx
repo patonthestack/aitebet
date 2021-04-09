@@ -1,4 +1,4 @@
-import { Layout, DashboardNav } from 'components/index';
+import { Layout, DashboardNav, CarouselAvatar } from 'components/index';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useAuth } from 'lib/auth';
@@ -13,10 +13,13 @@ import {
   ListItem,
   Avatar,
   Link,
+  Image,
+  VStack,
+  StackDivider,
 } from '@chakra-ui/react';
 import useSWR from 'swr';
 import fetcher from 'utils/fetcher';
-import NextLink from 'next/link';
+import { format } from 'date-fns';
 import { useDocument, useCollection } from '@nandorojo/swr-firestore';
 
 const NbaIndex: React.FC = () => {
@@ -29,12 +32,9 @@ const NbaIndex: React.FC = () => {
     listen: false,
   });
 
-  // TODO once API keys are retrieved, replae the '1' with API key
-  const nbaTeamsUrl =
-    'https://www.thesportsdb.com/api/v1/json/1/lookup_all_teams.php?id=4387';
-  // NBA schedule is patreon only on sports DB site
-  const nbaScheduleUrl =
-    'https://www.thesportsdb.com/api/v1/json/1/eventsnextleague.php?id=4387';
+  const nbaTeamsUrl = `https://www.thesportsdb.com/api/v1/json/${process.env.NEXT_PUBLIC_SPORTS_DB_KEY}/lookup_all_teams.php?id=4387`;
+  const nbaScheduleUrl = `https://www.thesportsdb.com/api/v1/json/${process.env.NEXT_PUBLIC_SPORTS_DB_KEY}/eventsnextleague.php?id=4387`;
+  const nbaLiveScores = `https://www.thesportsdb.com/api/v2/json/${process.env.NEXT_PUBLIC_SPORTS_DB_KEY}/livescore.php?l=4387`;
 
   const { data: nbaTeamsData } = useSWR<any, any>(`${nbaTeamsUrl}`, fetcher);
 
@@ -43,8 +43,14 @@ const NbaIndex: React.FC = () => {
     fetcher,
   );
 
+  const { data: nbaLiveScoresData } = useSWR<any, any>(
+    `${nbaLiveScores}`,
+    fetcher,
+  );
+
   console.log('nbaTeamsData: ', nbaTeamsData);
-  // console.log('nbaScheduleData: ', nbaScheduleData);
+  console.log('nbaScheduleData: ', nbaScheduleData);
+  console.log('nbaLiveScoresData: ', nbaLiveScoresData);
 
   return (
     <>
@@ -82,7 +88,24 @@ const NbaIndex: React.FC = () => {
                 textAlign="center"
                 mt={20}
               ></Flex>
-
+              <VStack
+                divider={<StackDivider borderColor="gray.200" />}
+                spacing={4}
+                align="stretch"
+              >
+                <Box h="40px" bg="yellow.200">
+                  1
+                </Box>
+                <Box h="40px" bg="tomato">
+                  2
+                </Box>
+                <Box h="40px" bg="pink.100">
+                  3
+                </Box>
+              </VStack>
+              <Box maxW={['580px', '780px', '1280px']} padding={6}>
+                <CarouselAvatar displayData={nbaTeamsData?.teams} />
+              </Box>
               <SimpleGrid
                 spacing={6}
                 columns={[1, 1, 2]}
@@ -167,8 +190,79 @@ const NbaIndex: React.FC = () => {
                         fontFamily="heading"
                         pb={4}
                       >
-                        NBA Schedule
+                        Schedule
                       </Heading>
+                      <Box textAlign="center">
+                        <List>
+                          {nbaScheduleData &&
+                            nbaScheduleData.events?.map((event: any) => (
+                              <ListItem key={event.strEvent} mb={2}>
+                                <Box>{event.strEvent}</Box>
+                                <Box mb={2}>
+                                  {format(
+                                    new Date(event.strTimestamp),
+                                    'MMMM dd, yyyy h:mm aa',
+                                  )}
+                                </Box>
+
+                                <Box align="center" mb={3}>
+                                  <Image
+                                    src={event.strThumb}
+                                    boxSize="3xs"
+                                    minW="sm"
+                                    alt={event.strEvent}
+                                  />
+                                </Box>
+                              </ListItem>
+                            ))}
+                        </List>
+                      </Box>
+                    </Flex>
+                  </Box>
+                </Stack>
+                {/* End Stack */}
+
+                {/* Begin Stack */}
+                <Stack>
+                  <Box
+                    backgroundColor="white"
+                    shadow="md"
+                    borderRadius="lg"
+                    py={5}
+                    mx={4}
+                  >
+                    <Flex
+                      display="flex"
+                      flexDirection="column"
+                      alignItems="center"
+                      justifyContent="center"
+                    >
+                      <Heading
+                        size="md"
+                        as="h2"
+                        lineHeight="shorter"
+                        fontWeight="bold"
+                        fontFamily="heading"
+                        pb={4}
+                      >
+                        Live Scores
+                      </Heading>
+                      <SimpleGrid>
+                        <Box textAlign="center">
+                          <List>
+                            {nbaLiveScoresData &&
+                              nbaLiveScoresData.events?.map((event: any) => (
+                                <ListItem key={event.idEvent} mb={2}>
+                                  <Box>
+                                    Home: {event.strHomeTeam} -{' '}
+                                    {event.intHomeScore} Away:{' '}
+                                    {event.strAwayTeam} - {event.intAwayScore}
+                                  </Box>
+                                </ListItem>
+                              ))}
+                          </List>
+                        </Box>
+                      </SimpleGrid>
                     </Flex>
                   </Box>
                 </Stack>

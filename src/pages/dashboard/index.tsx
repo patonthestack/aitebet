@@ -182,10 +182,10 @@ const DashboardIndex: React.FC = () => {
                         fontFamily="heading"
                         pb={4}
                       >
-                        LIVE SCHEDULES
+                        SCHEDULES & LIVE SCORES
                       </Heading>
                       <Text fontSize="md" px={5} textAlign="center">
-                        View sports schedules here
+                        View sports schedules and live scores here
                       </Text>
                     </Flex>
                     <Stack ml={4} shouldWrapChildren mt={4} mr={4}>

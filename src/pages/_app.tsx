@@ -13,6 +13,8 @@ import { AuthProvider } from 'lib/auth';
 // import { useRouter } from 'next/router'
 import theme from 'styles/theme';
 import 'focus-visible/dist/focus-visible';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
