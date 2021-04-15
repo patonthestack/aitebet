@@ -17,3 +17,4 @@ export * from './Card';
 export * from './SkeletonDocumentsTable';
 export * from './UserForm';
 export * from './CarouselAvatar';
+export { LayoutNew } from './LayoutNew';
