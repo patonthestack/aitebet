@@ -47,7 +47,7 @@ export const Layout: React.FC<LayoutProps> = ({
           />
           {hasNavbar && <Navbar />}
 
-          <Box as="main" width="100vw" minHeight="100vh" bg="gray.100">
+          <Box as="main" width="100vw" minHeight="100vh" bg="gray.100" mt="60px">
             {children}
           </Box>
           {hasFooter && (
