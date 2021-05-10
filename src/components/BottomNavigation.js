@@ -5,6 +5,7 @@ import {
   faHome,
   faUser,
   faDollarSign,
+  faBars
 } from '@fortawesome/free-solid-svg-icons';
 import { Box, Flex, VStack, Link } from '@chakra-ui/react';
 
@@ -27,7 +28,7 @@ export const BottomNavigation = () => {
           <NextLink href="/">
             <VStack>
               <FontAwesomeIcon icon={faHome} size="2x" />
-              <div>Home</div>
+              <span>Home</span>
             </VStack>
           </NextLink>
         </Box>
@@ -43,7 +44,15 @@ export const BottomNavigation = () => {
           <NextLink href="/dashboard">
             <VStack>
               <FontAwesomeIcon icon={faUser} size="2x" />
-              <span>Dashboard</span>
+              <span size="sm">Dashboard</span>
+            </VStack>
+          </NextLink>
+        </Box>
+        <Box>
+          <NextLink href="/dashboard/edit-user">
+            <VStack>
+              <FontAwesomeIcon icon={faBars} size="2x" />
+              <span>Profile</span>
             </VStack>
           </NextLink>
         </Box>
