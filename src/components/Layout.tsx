@@ -1,6 +1,7 @@
 import { Meta, Navbar, Footer } from 'components/index';
 import { Box, Heading } from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
+import { BottomNavigation } from './BottomNavigation';
 
 interface LayoutProps {
   title: string;
@@ -47,12 +48,12 @@ export const Layout: React.FC<LayoutProps> = ({
           />
           {hasNavbar && <Navbar />}
 
-          <Box as="main" width="100vw" minHeight="100vh" bg="gray.100" mt="60px">
+          <Box as="main" width="100vw" minHeight="100vh" bg="gray.100" mb="90px">
             {children}
           </Box>
           {hasFooter && (
             <Box as="footer" bg="gray.100">
-              <Footer />
+              <BottomNavigation />
             </Box>
           )}
         </>
