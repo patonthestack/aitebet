@@ -58,7 +58,7 @@ const Betslip = () => {
               <Flex px="1em" alignItems="center" key={item.username}>
                 {/* stars icon to be replaced with user photo */}
                 <StarIcon />
-                <Button onClick={onOpen}>
+                <Button>
                   <Box>
                     <Box>{item.name}</Box>
                     <Box fontSize="12px" textAlign="left">
@@ -82,7 +82,7 @@ const Betslip = () => {
               <Flex px="1em" alignItems="center" key={item.username}>
                 {/* stars icon to be replaced with user photo */}
                 <StarIcon />
-                <Button onClick={onOpen}>
+                <Button>
                   <Box>
                     <Box>{item.name}</Box>
                     <Box fontSize="12px" textAlign="left">
