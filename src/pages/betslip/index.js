@@ -9,10 +9,12 @@ import {
   Flex,
   Spacer,
   Center,
+  Button,
 } from '@chakra-ui/react';
+
 import { Container, Layout } from 'components/index';
 import NextLink from 'next/link';
-import { StarIcon, InfoOutlineIcon, WarningIcon } from '@chakra-ui/icons';
+import { StarIcon, InfoOutlineIcon } from '@chakra-ui/icons';
 
 const topFriends = [
   { name: 'Patrick Tep', picture: '', username: '@ptep03', link: '/' },
@@ -27,6 +29,7 @@ const friends = [
   { name: 'Henry Portillo', picture: '', username: '@henryp15', link: '/' },
   { name: 'Selwin Maz', picture: '', username: '@selmaz', link: '/' },
 ];
+
 const Betslip = () => {
   return (
     <Layout
@@ -53,12 +56,18 @@ const Betslip = () => {
           {topFriends.map((item) => {
             return (
               <Flex px="1em" alignItems="center" key={item.username}>
+                {/* stars icon to be replaced with user photo */}
                 <StarIcon />
-                <Box ml="1em">
-                  <Box>{item.name}</Box>
-                  <Box fontSize="12px">{item.username}</Box>
-                </Box>
+                <Button onClick={onOpen}>
+                  <Box>
+                    <Box>{item.name}</Box>
+                    <Box fontSize="12px" textAlign="left">
+                      {item.username}
+                    </Box>
+                  </Box>
+                </Button>
                 <Spacer />
+                {/* This icon below will link to the friends' detail page */}
                 <InfoOutlineIcon />
               </Flex>
             );
@@ -70,13 +79,19 @@ const Betslip = () => {
           </Box>
           {friends.map((item) => {
             return (
-              <Flex pr="1em" pl="1em" alignItems="center" key={item.username}>
+              <Flex px="1em" alignItems="center" key={item.username}>
+                {/* stars icon to be replaced with user photo */}
                 <StarIcon />
-                <Box ml="1em">
-                  <Box>{item.name}</Box>
-                  <Box fontSize="12px">{item.username}</Box>
-                </Box>
+                <Button onClick={onOpen}>
+                  <Box>
+                    <Box>{item.name}</Box>
+                    <Box fontSize="12px" textAlign="left">
+                      {item.username}
+                    </Box>
+                  </Box>
+                </Button>
                 <Spacer />
+                {/* This icon below will link to the friends' detail page */}
                 <InfoOutlineIcon />
               </Flex>
             );
