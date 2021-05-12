@@ -27,7 +27,7 @@ export const BottomNavigation = () => {
         <Box>
           <NextLink href="/">
             <VStack>
-              <FontAwesomeIcon icon={faHome} size="2x" />
+              <FontAwesomeIcon icon={faHome} size="2x" height="30px" />
               <span>Home</span>
             </VStack>
           </NextLink>
@@ -35,7 +35,7 @@ export const BottomNavigation = () => {
         <Box>
           <NextLink href="/betslip">
             <VStack>
-              <FontAwesomeIcon icon={faDollarSign} size="2x" />
+              <FontAwesomeIcon icon={faDollarSign} size="2x" height="30px" />
               <span>aitebet</span>
             </VStack>
           </NextLink>
@@ -43,7 +43,7 @@ export const BottomNavigation = () => {
         <Box>
           <NextLink href="/dashboard">
             <VStack>
-              <FontAwesomeIcon icon={faUser} size="2x" />
+              <FontAwesomeIcon icon={faUser} size="2x" height="30px" />
               <span size="sm">Dashboard</span>
             </VStack>
           </NextLink>
@@ -51,7 +51,7 @@ export const BottomNavigation = () => {
         <Box>
           <NextLink href="/dashboard/edit-user">
             <VStack>
-              <FontAwesomeIcon icon={faBars} size="2x" />
+              <FontAwesomeIcon icon={faBars} size="2x" height="30px" />
               <span>Profile</span>
             </VStack>
           </NextLink>
