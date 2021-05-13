@@ -17,8 +17,6 @@ import { userProviderCheck } from 'helpers/index';
 import NextLink from 'next/link';
 export interface DashboardNavProps {
   bets?: Bets[];
-  organizationId?: string;
-  exhibitorId?: string;
 }
 
 export interface Bets {
@@ -58,23 +56,6 @@ export const DashboardNav: React.FC<DashboardNavProps> = () => {
             <ListItem>
               <AppLink href="/dashboard/edit-user" className="">
                 <a style={{ textDecoration: 'underlined' }}>Edit My Profile</a>
-              </AppLink>
-            </ListItem>
-            <ListItem>
-              <AppLink href="/dashboard/my-education" className="">
-                <a style={{ textDecoration: 'underlined' }}>My Education</a>
-              </AppLink>
-            </ListItem>
-            <ListItem>
-              <AppLink href="/dashboard/my-documents" className="">
-                <a style={{ textDecoration: 'underlined' }}>My Documents</a>
-              </AppLink>
-            </ListItem>
-            <ListItem>
-              <AppLink href="/dashboard/my-work-experience" className="">
-                <a style={{ textDecoration: 'underlined' }}>
-                  My Work Experience
-                </a>
               </AppLink>
             </ListItem>
 
