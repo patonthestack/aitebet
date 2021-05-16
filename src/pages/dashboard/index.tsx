@@ -15,6 +15,7 @@ import {
 import { userProviderCheck } from 'helpers/index';
 import NextLink from 'next/link';
 import { useDocument, useCollection } from '@nandorojo/swr-firestore';
+import DashboardCard from '@/components/Dashboard/DashboardCard';
 
 const DashboardIndex: React.FC = () => {
   const { user } = useAuth(); // firebase authentication
@@ -101,282 +102,30 @@ const DashboardIndex: React.FC = () => {
                 justifyContent="center"
                 margin="0 auto"
               >
-                {/* Begin Stack */}
-                <Stack>
-                  <Box
-                    backgroundColor="white"
-                    shadow="md"
-                    borderRadius="lg"
-                    py={5}
-                    mx={4}
-                  >
-                    <Flex
-                      display="flex"
-                      flexDirection="column"
-                      alignItems="center"
-                      justifyContent="center"
-                    >
-                      <Heading
-                        size="md"
-                        as="h2"
-                        lineHeight="shorter"
-                        fontWeight="bold"
-                        fontFamily="heading"
-                        pb={4}
-                      >
-                        MY BETS
-                      </Heading>
-                      <Text fontSize="md" px={5} textAlign="center">
-                        Manage your bets here
-                      </Text>
-                    </Flex>
-                    <Stack ml={4} shouldWrapChildren mt={4} mr={4}>
-                      <Stack
-                        shouldWrapChildren
-                        justifyContent="center"
-                        alignItems="center"
-                        spacing={2}
-                      >
-                        <Button
-                          colorScheme="blue"
-                          variant="outline"
-                          onClick={() =>
-                            router
-                              .push('/dashboard/my-bets')
-                              .then(() => window.scrollTo(0, 0))
-                          }
-                        >
-                          MANAGE BETS
-                        </Button>
-                      </Stack>
-                    </Stack>
-                  </Box>
-                </Stack>
-                {/* End Stack */}
-
-                {/* Begin Stack */}
-                <Stack>
-                  <Box
-                    backgroundColor="white"
-                    shadow="md"
-                    borderRadius="lg"
-                    py={5}
-                    mx={4}
-                  >
-                    <Flex
-                      display="flex"
-                      flexDirection="column"
-                      alignItems="center"
-                      justifyContent="center"
-                    >
-                      <Heading
-                        size="md"
-                        as="h2"
-                        lineHeight="shorter"
-                        fontWeight="bold"
-                        fontFamily="heading"
-                        pb={4}
-                      >
-                        SCHEDULES & LIVE SCORES
-                      </Heading>
-                      <Text fontSize="md" px={5} textAlign="center">
-                        View sports schedules and live scores here
-                      </Text>
-                    </Flex>
-                    <Stack ml={4} shouldWrapChildren mt={4} mr={4}>
-                      <Stack
-                        shouldWrapChildren
-                        justifyContent="center"
-                        alignItems="center"
-                        spacing={2}
-                      >
-                        <Button
-                          colorScheme="blue"
-                          variant="outline"
-                          onClick={() =>
-                            router
-                              .push('/dashboard/sports-schedules')
-                              .then(() => window.scrollTo(0, 0))
-                          }
-                        >
-                          VIEW SCHEDULES
-                        </Button>
-                      </Stack>
-                    </Stack>
-                  </Box>
-                </Stack>
-                {/* End Stack */}
-
-                {/* Begin Stack */}
-                <Stack>
-                  <Box
-                    backgroundColor="white"
-                    shadow="md"
-                    borderRadius="lg"
-                    py={5}
-                    mx={4}
-                  >
-                    <Flex
-                      display="flex"
-                      flexDirection="column"
-                      alignItems="center"
-                      justifyContent="center"
-                    >
-                      <Heading
-                        size="md"
-                        as="h2"
-                        lineHeight="shorter"
-                        fontWeight="bold"
-                        fontFamily="heading"
-                        pb={4}
-                      >
-                        MY STATS
-                      </Heading>
-                      <Text fontSize="md" px={5} textAlign="center">
-                        Manage your stats here
-                      </Text>
-                    </Flex>
-                    <Stack ml={4} shouldWrapChildren mt={4} mr={4}>
-                      <Stack
-                        shouldWrapChildren
-                        justifyContent="center"
-                        alignItems="center"
-                        spacing={2}
-                      >
-                        <Button
-                          colorScheme="blue"
-                          variant="outline"
-                          onClick={() =>
-                            router
-                              .push('/dashboard/my-stats')
-                              .then(() => window.scrollTo(0, 0))
-                          }
-                        >
-                          MANAGE STATS
-                        </Button>
-                      </Stack>
-                    </Stack>
-                  </Box>
-                </Stack>
-                {/* End Stack */}
-
-                {/* Begin Stack */}
-                <Stack>
-                  <Box
-                    backgroundColor="white"
-                    shadow="md"
-                    borderRadius="lg"
-                    py={5}
-                    mx={4}
-                  >
-                    <Flex
-                      display="flex"
-                      flexDirection="column"
-                      alignItems="center"
-                      justifyContent="center"
-                    >
-                      <Heading
-                        size="md"
-                        as="h2"
-                        lineHeight="shorter"
-                        fontWeight="bold"
-                        fontFamily="heading"
-                        pb={4}
-                      >
-                        MY PROFILE
-                      </Heading>
-                      <Text fontSize="md" px={5} textAlign="center">
-                        Manage your personal public profile
-                      </Text>
-                    </Flex>
-                    <Stack ml={4} shouldWrapChildren mt={4} mr={4}>
-                      <Stack
-                        shouldWrapChildren
-                        justifyContent="center"
-                        alignItems="center"
-                        spacing={2}
-                        direction={['column', 'row']}
-                      >
-                        <Button
-                          colorScheme="blue"
-                          variant="outline"
-                          onClick={() =>
-                            router
-                              .push('/dashboard/edit-user')
-                              .then(() => window.scrollTo(0, 0))
-                          }
-                        >
-                          MANAGE PROFILE
-                        </Button>
-                        {/* <Button
-                              colorScheme="blue"
-                              variant="outline"
-                              onClick={() =>
-                                router
-                                  .push(`/user/profile/${user?.uid}`)
-                                  .then(() => window.scrollTo(0, 0))
-                              }
-                            >
-                              VIEW MY PROFILE
-                            </Button> */}
-                      </Stack>
-                    </Stack>
-                  </Box>
-                </Stack>
-                {/* End Stack */}
-
-                {/* Begin Stack */}
-                <Stack>
-                  <Box
-                    backgroundColor="white"
-                    shadow="md"
-                    borderRadius="lg"
-                    py={5}
-                    mx={4}
-                  >
-                    <Flex
-                      display="flex"
-                      flexDirection="column"
-                      alignItems="center"
-                      justifyContent="center"
-                    >
-                      <Heading
-                        size="md"
-                        as="h2"
-                        lineHeight="shorter"
-                        fontWeight="bold"
-                        fontFamily="heading"
-                        pb={4}
-                      >
-                        MY FRIENDS
-                      </Heading>
-                      <Text fontSize="md" px={5} textAlign="center">
-                        Manage your friends here
-                      </Text>
-                    </Flex>
-                    <Stack ml={4} shouldWrapChildren mt={4} mr={4}>
-                      <Stack
-                        shouldWrapChildren
-                        justifyContent="center"
-                        alignItems="center"
-                        spacing={2}
-                      >
-                        <Button
-                          colorScheme="blue"
-                          variant="outline"
-                          onClick={() =>
-                            router
-                              .push('/friendships')
-                              .then(() => window.scrollTo(0, 0))
-                          }
-                        >
-                          MANAGE FRIENDS
-                        </Button>
-                      </Stack>
-                    </Stack>
-                  </Box>
-                </Stack>
-                {/* End Stack */}
+                <DashboardCard
+                  title="My Bets"
+                  description="Manage your bets here"
+                  buttonText="Manage Bets"
+                  buttonLink="/dashboard/my-bets"
+                />
+                <DashboardCard
+                  title="My Stats"
+                  description="View your stats here"
+                  buttonText="View Stats"
+                  buttonLink="/dashboard/my-stats"
+                />
+                <DashboardCard
+                  title="My Profile"
+                  description="Edit Profile"
+                  buttonText="Manage Profile"
+                  buttonLink="/dashboard/my-profile"
+                />
+                <DashboardCard
+                  title="My Friends"
+                  description="Manage Friendships"
+                  buttonText="Manage Friendships"
+                  buttonLink="/friendships/my-friends"
+                />
               </SimpleGrid>
             </Box>
           </Flex>
