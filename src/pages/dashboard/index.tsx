@@ -54,12 +54,7 @@ const DashboardIndex: React.FC = () => {
               h="100%"
               bg="blue.300"
             >
-              <DashboardNav
-              // events={events}
-              // userData={userData}
-              // organizationId={userData?.user.organizationId}
-              // exhibitorId={userData?.user.exhibitorId}
-              />
+              <DashboardNav />
             </Box>
 
             <Box
@@ -253,7 +248,7 @@ const DashboardIndex: React.FC = () => {
                           variant="outline"
                           onClick={() =>
                             router
-                              .push('/dashboard/my-work-experience')
+                              .push('/dashboard/my-stats')
                               .then(() => window.scrollTo(0, 0))
                           }
                         >
@@ -324,6 +319,59 @@ const DashboardIndex: React.FC = () => {
                             >
                               VIEW MY PROFILE
                             </Button> */}
+                      </Stack>
+                    </Stack>
+                  </Box>
+                </Stack>
+                {/* End Stack */}
+
+                {/* Begin Stack */}
+                <Stack>
+                  <Box
+                    backgroundColor="white"
+                    shadow="md"
+                    borderRadius="lg"
+                    py={5}
+                    mx={4}
+                  >
+                    <Flex
+                      display="flex"
+                      flexDirection="column"
+                      alignItems="center"
+                      justifyContent="center"
+                    >
+                      <Heading
+                        size="md"
+                        as="h2"
+                        lineHeight="shorter"
+                        fontWeight="bold"
+                        fontFamily="heading"
+                        pb={4}
+                      >
+                        MY FRIENDS
+                      </Heading>
+                      <Text fontSize="md" px={5} textAlign="center">
+                        Manage your friends here
+                      </Text>
+                    </Flex>
+                    <Stack ml={4} shouldWrapChildren mt={4} mr={4}>
+                      <Stack
+                        shouldWrapChildren
+                        justifyContent="center"
+                        alignItems="center"
+                        spacing={2}
+                      >
+                        <Button
+                          colorScheme="blue"
+                          variant="outline"
+                          onClick={() =>
+                            router
+                              .push('/friendships')
+                              .then(() => window.scrollTo(0, 0))
+                          }
+                        >
+                          MANAGE FRIENDS
+                        </Button>
                       </Stack>
                     </Stack>
                   </Box>
