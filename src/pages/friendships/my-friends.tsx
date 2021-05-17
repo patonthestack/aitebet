@@ -1,8 +1,15 @@
-import { useEffect, useState } from 'react';
-import { Box, Button, Heading } from '@chakra-ui/react';
+import { MouseEventHandler, SyntheticEvent, useEffect, useState } from 'react';
+import {
+  Box,
+  Button,
+  Heading,
+  HTMLChakraComponents,
+  HTMLChakraProps,
+} from '@chakra-ui/react';
 import { Layout } from 'components/index';
 import { useDocument, useCollection } from '@nandorojo/swr-firestore';
 import { useAuthUser } from '@/lib/useAuthUser';
+import { usePrevious } from '@/hooks/index';
 
 export const MyFriendsPage: React.FC = () => {
   const { userData } = useAuthUser();
@@ -22,33 +29,30 @@ export const MyFriendsPage: React.FC = () => {
   const [friendId, setFriendId] = useState<string>('');
   const [buttonValue, setButtonValue] = useState<string>('');
 
+  const prevFriendId: string = usePrevious(friendId);
+
   const { update } = useDocument<any>(`friendships/${friendId}`);
 
-  const handleAcceptFriendRequest = async () => {
+  const onAcceptDeclineClick = (e: any, friend: any) => {
+    e.preventDefault();
+    setFriendId(friend.id);
+    setButtonValue(e.target.value);
+  };
+
+  const handleFriendRequest = async () => {
     const dataObj = {
-      status: 'accepted',
+      status: buttonValue === 'accept' ? 'accepted' : 'declined',
     };
     await update(dataObj);
   };
-
-  const handleDeclineFriendRequest = async () => {
-    const dataObj = {
-      status: 'declined',
-    };
-    await update(dataObj);
-  };
-
-  console.log('acceptFriendId', friendId);
-  console.log('buttonValue', buttonValue);
 
   useEffect(() => {
-    if (buttonValue === 'accept' && friendId) {
-      handleAcceptFriendRequest();
+    if (typeof prevFriendId !== 'undefined') {
+      if (prevFriendId !== friendId) {
+        handleFriendRequest();
+      }
     }
-    if (buttonValue === 'decline' && friendId) {
-      handleDeclineFriendRequest();
-    }
-  }, [buttonValue, friendId]);
+  }, [prevFriendId, friendId]);
 
   return (
     <Layout title="friends" description="friendship" canonical="/dashboard">
@@ -56,9 +60,9 @@ export const MyFriendsPage: React.FC = () => {
         <Heading>Friend Requests Sent</Heading>
         <Box>
           {friendRequestsSent &&
-            friendRequestsSent.map((friend) => {
-              return <Box key={friend.receiverId}>{friend.receiverName}</Box>;
-            })}
+            friendRequestsSent.map((friend) => (
+              <Box key={friend.receiverId}>{friend.receiverName}</Box>
+            ))}
         </Box>
         <Heading>Friend Requests Received</Heading>
         <Box>
@@ -69,20 +73,20 @@ export const MyFriendsPage: React.FC = () => {
                 <Button
                   value="accept"
                   onClick={(e) => {
-                    setFriendId(friend.id);
-                    setButtonValue('accept');
+                    onAcceptDeclineClick(e, friend);
                   }}
                 >
                   Accept
+                  {friend.id}
                 </Button>
                 <Button
                   value="decline"
                   onClick={(e) => {
-                    setFriendId(friend.id);
-                    setButtonValue('decline');
+                    onAcceptDeclineClick(e, friend);
                   }}
                 >
                   Decline
+                  {friend.id}
                 </Button>
               </Box>
             ))}
