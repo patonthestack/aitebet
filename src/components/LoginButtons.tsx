@@ -18,25 +18,25 @@ export const LoginButtons = () => {
   return (
     <Stack direction={['column', 'row']}>
       {/* TODO just for now so that users cannot sign in on prod */}
-      {process.env.NODE_ENV === 'development' && (
-        <Button
-          onClick={() => auth.signinWithGoogle()}
-          backgroundColor="white"
-          color="gray.900"
-          variant="outline"
-          fontWeight="medium"
-          leftIcon={<FcGoogle />}
-          mt={4}
-          mb={4}
-          _hover={{ bg: 'gray.100' }}
-          _active={{
-            bg: 'gray.100',
-            transform: 'scale(0.95)',
-          }}
-        >
-          Sign in with Google
-        </Button>
-      )}
+      {/* {process.env.NODE_ENV === 'development' && ( */}
+      <Button
+        onClick={() => auth.signinWithGoogle()}
+        backgroundColor="white"
+        color="gray.900"
+        variant="outline"
+        fontWeight="medium"
+        leftIcon={<FcGoogle />}
+        mt={4}
+        mb={4}
+        _hover={{ bg: 'gray.100' }}
+        _active={{
+          bg: 'gray.100',
+          transform: 'scale(0.95)',
+        }}
+      >
+        Sign in with Google
+      </Button>
+      {/* )}  */}
     </Stack>
   );
 };

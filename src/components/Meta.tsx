@@ -13,7 +13,6 @@ export const Meta: React.FC<LayoutProps> = ({
   title,
   description,
   canonical,
-  postImage,
   schemaData,
 }) => {
   return (
@@ -29,7 +28,7 @@ export const Meta: React.FC<LayoutProps> = ({
       <meta name="keywords" content="" />
       <meta name="language" content="English" />
       <meta name="revisit-after" content="1 days" />
-      <meta name="author" content="Patrick Tep" />
+      <meta name="author" content="Kev & Pat" />
       <link rel="publisher" href="https://aitebet.com" />
 
       <link rel="canonical" href={`https://aitebet.com/${canonical}`} />
@@ -145,27 +144,6 @@ export const Meta: React.FC<LayoutProps> = ({
         content="/favicons/ms-icon-144x144.png"
       />
       <meta name="theme-color" content="#ffffff" />
-
-      {/* opengraph - blog posts and portfolio */}
-      <meta property="og:type" content="website" />
-      <meta property="og:locale" content="en_US" />
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={description} />
-      <meta property="og:url" content={`https://aitebet.com${canonical}`} />
-      <meta property="og:image" content={postImage || ''} />
-
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
-      <meta property="article:author" content="Eric David Smith" />
-      <meta property="fb:app_id" content="2054368228145418" />
-
-      {/* twitter */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content="@gradgreenhouse" />
-      <meta name="twitter:creator" content="@gradgreenhouse" />
-      <meta name="twitter:title" content={title} />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={postImage || ''} />
 
       {/* structured data, careers, and company */}
       <script
