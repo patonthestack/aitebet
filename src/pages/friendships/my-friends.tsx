@@ -1,11 +1,5 @@
-import { MouseEventHandler, SyntheticEvent, useEffect, useState } from 'react';
-import {
-  Box,
-  Button,
-  Heading,
-  HTMLChakraComponents,
-  HTMLChakraProps,
-} from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import { Box, Button, Heading } from '@chakra-ui/react';
 import { Layout } from 'components/index';
 import { useDocument, useCollection } from '@nandorojo/swr-firestore';
 import { useAuthUser } from '@/lib/useAuthUser';
