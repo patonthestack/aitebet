@@ -1,7 +1,7 @@
 import React from 'react';
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, Heading } from '@chakra-ui/react';
 
-export const TopNavigation = () => {
+export const TopNavigation: React.FC<any> = () => {
   return (
     <>
       <Flex
@@ -16,7 +16,9 @@ export const TopNavigation = () => {
         bg="white"
       >
         <Box>
-          <h1>AITE BET</h1>
+          <Heading as="h1" size="md">
+            AITE BET
+          </Heading>
         </Box>
       </Flex>
     </>

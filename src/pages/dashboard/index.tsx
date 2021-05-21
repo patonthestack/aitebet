@@ -2,11 +2,7 @@ import { Layout } from 'components/index';
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useAuth } from 'lib/auth';
-import {
-  Box,
-  Flex,
-  SimpleGrid,
-} from '@chakra-ui/react';
+import { Box, Flex, SimpleGrid } from '@chakra-ui/react';
 import { useDocument } from '@nandorojo/swr-firestore';
 import DashboardCard from '@/components/Dashboard/DashboardCard';
 
@@ -38,10 +34,7 @@ const DashboardIndex: React.FC = () => {
           // isBanned={userData?.user._isBanned}
         >
           <Flex>
-            <Box
-              flex="1"
-              display="block"
-            >
+            <Box flex="1" display="block">
               <SimpleGrid
                 spacing={6}
                 columns={[1, 1, 2]}
@@ -55,7 +48,7 @@ const DashboardIndex: React.FC = () => {
                   title="My Bets"
                   description="Manage your bets here"
                   buttonText="Manage Bets"
-                  buttonLink="/dashboard/my-bets"
+                  buttonLink="/dashboard/manage-bets"
                 />
                 <DashboardCard
                   title="My Stats"

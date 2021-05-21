@@ -5,11 +5,11 @@ import {
   faHome,
   faUser,
   faDollarSign,
-  faBars
+  faBars,
 } from '@fortawesome/free-solid-svg-icons';
-import { Box, Flex, VStack, Link } from '@chakra-ui/react';
+import { Box, Flex, VStack, Link, Text } from '@chakra-ui/react';
 
-export const BottomNavigation = () => {
+export const BottomNavigation: React.FC<any> = () => {
   return (
     <>
       <Flex
@@ -24,7 +24,7 @@ export const BottomNavigation = () => {
         color="gray.600"
         bg="white"
       >
-        <Box>
+        <Box cursor="pointer">
           <NextLink href="/">
             <VStack>
               <FontAwesomeIcon icon={faHome} size="2x" height="30px" />
@@ -32,7 +32,7 @@ export const BottomNavigation = () => {
             </VStack>
           </NextLink>
         </Box>
-        <Box>
+        <Box cursor="pointer">
           <NextLink href="/betslip">
             <VStack>
               <FontAwesomeIcon icon={faDollarSign} size="2x" height="30px" />
@@ -40,16 +40,16 @@ export const BottomNavigation = () => {
             </VStack>
           </NextLink>
         </Box>
-        <Box>
+        <Box cursor="pointer">
           <NextLink href="/dashboard">
             <VStack>
               <FontAwesomeIcon icon={faUser} size="2x" height="30px" />
-              <span size="sm">Dashboard</span>
+              <Text size="sm">Dashboard</Text>
             </VStack>
           </NextLink>
         </Box>
-        <Box>
-          <NextLink href="/dashboard/edit-user">
+        <Box cursor="pointer">
+          <NextLink href="/user">
             <VStack>
               <FontAwesomeIcon icon={faBars} size="2x" height="30px" />
               <span>Profile</span>

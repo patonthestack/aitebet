@@ -32,7 +32,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/pages/video-chat.js", "src/lib/auth.js"  ],
+, "src/pages/video-chat.js", "src/lib/auth.ts"  ],
   "exclude": [
     "node_modules"
   ]
