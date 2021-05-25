@@ -27,6 +27,7 @@ export interface SportsDbScheduleProps extends Record<string, any> {
   strSeason: string;
   strSport: string;
   strStatus: string;
+  strTimestamp: Date;
 }
 
 export interface SportsDbLiveScoreProps extends Record<string, any> {}

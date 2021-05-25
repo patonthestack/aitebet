@@ -1,26 +1,29 @@
-import React, { MouseEvent, useRef, useState, useEffect } from 'react';
-import { Layout, DashboardNav } from 'components/index';
+import React, { useRef, useState, useEffect } from 'react';
+import { Layout } from 'components/index';
 import { useRouter } from 'next/router';
 import { useAuthUser } from 'lib/useAuthUser';
-import { useRequireAuth } from 'lib/useRequireAuth';
+import format from 'date-fns/format';
 import {
   Box,
   Button,
   Divider,
-  Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
   Heading,
-  Select,
+  Select as ChakraSelect,
   SimpleGrid,
-  Text,
+  usePrevious,
   useToast,
+  Stack,
 } from '@chakra-ui/react';
+import Select from 'react-select';
 import { useDocument, useCollection } from '@nandorojo/swr-firestore';
 import { useForm, Controller } from 'react-hook-form';
 import firebase from 'firebase/app';
-import { _sportsData } from '@/data/_sportsData';
+import { _leaguesData } from '@/data/_leaguesData';
+import { useSportsDB } from '@/hooks/index';
+import { SportsDbScheduleProps } from 'types';
 
 const PoolIndexPage: React.FC = () => {
   const { userData } = useAuthUser();
@@ -28,7 +31,9 @@ const PoolIndexPage: React.FC = () => {
   const router = useRouter();
   const selectRef = useRef();
 
-  const [leagueId, setLeagueId] = useState<number>(null);
+  const [leagueId, setLeagueId] = useState<number>(0);
+  const { scheduleData } = useSportsDB(leagueId);
+  const [matchupsDropdownData, setMatchupsDropdownData] = useState<any>([]);
 
   const {
     register,
@@ -39,37 +44,13 @@ const PoolIndexPage: React.FC = () => {
     reset,
   } = useForm();
 
-  // Get User Data
-  const { update } = useDocument<any>(`users/${userData && userData.uid}`, {
-    listen: false,
-  });
-
-  const onUpdateUser = async (docId) => {
-    const dataObj = {
-      books: firebase.firestore.FieldValue.arrayUnion(docId),
-      modifiedAt: new Date().toISOString(),
-    };
-
-    update(dataObj);
-
-    toast({
-      title: 'Success!',
-      description: "You've updated your profile!",
-      status: 'success',
-      duration: 5000,
-      isClosable: true,
-    });
-
-    router.push(`/dashboard`).then(() => window.scrollTo(0, 0));
-  };
-
   const { add } = useCollection<any>('pools');
 
-  const onCreatePool = async (data) => {
+  const onCreatePool = async (data: any) => {
     const dataObj = {
       ...data,
       owner: userData.uid,
-      modifiedAt: new Date().toISOString(),
+      createdAt: new Date().toISOString(),
     };
 
     add(dataObj);
@@ -85,11 +66,18 @@ const PoolIndexPage: React.FC = () => {
     router.push(`/dashboard/manage-bets`);
   };
 
+  // handle league dropdown
   const handleLeagueSelect = (e: any) => {
     setLeagueId(e.target.value);
   };
 
-  useEffect(() => {}, []);
+  // handle multi select dropdown
+  const handleChange = (newValue: any, actionMeta: any) => {
+    console.group('Value Changed');
+    console.log(newValue);
+    console.log(`action: ${actionMeta.action}`);
+    console.groupEnd();
+  };
 
   return (
     <>
@@ -115,31 +103,54 @@ const PoolIndexPage: React.FC = () => {
                   <Box my={1}>
                     <FormControl>
                       <FormLabel htmlFor="league">League</FormLabel>
+                      <Stack w="sm">
+                        <Controller
+                          defaultValue=""
+                          as={
+                            <ChakraSelect
+                              w={['3xs', '3xs', 'xs']}
+                              placeholder="Select League"
+                              ref={selectRef}
+                              variant="filled"
+                              onClick={(e) => handleLeagueSelect(e)}
+                            >
+                              {_leaguesData.map((league) => (
+                                <option key={league.value} value={league.value}>
+                                  {league.label}
+                                </option>
+                              ))}
+                            </ChakraSelect>
+                          }
+                          name="league"
+                          control={control}
+                          rules={{ required: true }}
+                        />
+                      </Stack>
+
+                      {errors.league && (
+                        <FormErrorMessage>
+                          Please Select a League
+                        </FormErrorMessage>
+                      )}
+                    </FormControl>
+                  </Box>
+                  <Box my={1}>
+                    <FormControl>
+                      <FormLabel htmlFor="matchups">Matchups</FormLabel>
                       <Controller
                         defaultValue=""
-                        as={
-                          <Select
-                            w={['3xs', '3xs', 'xs']}
-                            placeholder="Select League"
-                            ref={selectRef}
-                            variant="filled"
-                            onClick={(e) => handleLeagueSelect(e)}
-                          >
-                            {_sportsData.map((league) => (
-                              <option key={league.value} value={league.value}>
-                                {league.label}
-                              </option>
-                            ))}
-                          </Select>
-                        }
+                        as={Select}
+                        isMulti
+                        onChange={handleChange}
                         name="league"
+                        options={leagueId > 0 ? scheduleData : []}
                         control={control}
                         rules={{ required: true }}
                       />
 
                       {errors.league && (
                         <FormErrorMessage>
-                          Please Select a League
+                          Please Select a Game
                         </FormErrorMessage>
                       )}
                     </FormControl>
@@ -177,7 +188,7 @@ const PoolIndexPage: React.FC = () => {
                   }}
                   isLoading={formState.isSubmitting}
                 >
-                  Update My Profile
+                  Create Pool
                 </Button>
               </FormControl>
             </form>
