@@ -3,7 +3,7 @@ import { useAuth } from 'lib/auth';
 import { useRouter } from 'next/router';
 import { useDocument } from '@nandorojo/swr-firestore';
 
-export function useAuthUser(redirectUrl = '/') {
+export function useAuthUser(redirectUrl = '/auth/sign-in') {
   const [isOnline, setIsOnline] = useState<boolean>(false);
   const auth = useAuth();
   const { user, signout } = auth;

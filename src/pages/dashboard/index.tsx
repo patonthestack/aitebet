@@ -18,7 +18,7 @@ const DashboardIndex: React.FC = () => {
   // check auth
   useEffect(() => {
     if (user === false) {
-      router.push('/');
+      router.push('/auth/sign-in');
     }
   }, [user]);
 

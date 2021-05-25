@@ -43,15 +43,19 @@ function useProvideAuth() {
     }
   };
 
-  const signinWithGoogle = () => {
+  const signinWithGoogle = async () => {
     setLoading(true);
     const googleProvider = new firebase.auth.GoogleAuthProvider();
-    return firebase
+    return await firebase
       .auth()
-      .signInWithRedirect(googleProvider)
+      .signInWithPopup(googleProvider)
       .then((data) => {
         handleUser(data.user);
         Router.push('/dashboard');
+      })
+      .catch((error) => {
+        // An error happened.
+        console.log('error', error);
       });
   };
 
@@ -94,7 +98,7 @@ function useProvideAuth() {
   };
 
   const signout = () => {
-    Router.push('/');
+    Router.push('/auth/sign-in');
 
     return firebase
       .auth()
@@ -121,6 +125,7 @@ function useProvideAuth() {
 
 const formatUser = async (user) => {
   const idTokenResult = await user.getIdTokenResult();
+  console.log({ idTokenResult });
   return {
     uid: user.uid,
     email: user.email,
