@@ -48,7 +48,7 @@ function useProvideAuth() {
     const googleProvider = new firebase.auth.GoogleAuthProvider();
     return await firebase
       .auth()
-      .signInWithPopup(googleProvider)
+      .signInWithRedirect(googleProvider)
       .then((data) => {
         handleUser(data.user);
         Router.push('/dashboard');
@@ -125,7 +125,6 @@ function useProvideAuth() {
 
 const formatUser = async (user) => {
   const idTokenResult = await user.getIdTokenResult();
-  console.log({ idTokenResult });
   return {
     uid: user.uid,
     email: user.email,
