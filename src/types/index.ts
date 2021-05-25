@@ -1,3 +1,11 @@
+export interface UserDataProps extends Record<string, any> {
+  uid: string;
+  email: string;
+  modifiedAt: Date;
+  name: string;
+  nickname: string;
+  provider: string;
+}
 export interface SportsDbTeamProps extends Record<string, any> {
   idLeague: number;
   idTeam: number;
