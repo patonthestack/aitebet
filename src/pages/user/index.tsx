@@ -6,7 +6,7 @@ import { Layout, DashboardNav, UserForm } from 'components/index';
 import { useRouter } from 'next/router';
 import NextLink from 'next/link';
 
-export const EditUser: React.FC = () => {
+export const UserIndexPage: React.FC = () => {
   const auth = useRequireAuth();
   const { user } = useAuth();
 
@@ -87,4 +87,4 @@ export const EditUser: React.FC = () => {
   );
 };
 
-export default EditUser;
+export default UserIndexPage;

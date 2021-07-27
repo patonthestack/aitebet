@@ -14,4 +14,5 @@ export * from './AppLink';
 export * from './SkeletonDocumentsTable';
 export * from './UserForm';
 export * from './CarouselAvatar';
+export * from './PoolForm';
 export { LayoutNew } from './LayoutNew';
