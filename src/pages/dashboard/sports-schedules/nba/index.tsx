@@ -19,7 +19,7 @@ import {
 } from '@chakra-ui/react';
 import useSWR from 'swr';
 import fetcher from 'utils/fetcher';
-import { format } from 'date-fns';
+import format from 'date-fns/format';
 import { useDocument, useCollection } from '@nandorojo/swr-firestore';
 
 const NbaIndex: React.FC = () => {
