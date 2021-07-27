@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/storage';
@@ -6,7 +6,6 @@ import { FuegoProvider } from '@nandorojo/swr-firestore';
 import { Fuego } from 'lib/fuego';
 import { ChakraProvider } from '@chakra-ui/react';
 import { MDXProvider } from '@mdx-js/react';
-import Router from 'next/router';
 // import * as Fathom from 'fathom-client'
 import MDXComponents from 'components/MDXComponents';
 import { AuthProvider } from 'lib/auth';
@@ -23,11 +22,9 @@ const firebaseConfig = {
   projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
   storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_API_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_ANALYTICS,
 };
-
-const fuego = new Fuego(firebaseConfig);
 
 // export function reportWebVitals(metric) {
 //   if (metric.label === 'web-vital') {
@@ -45,14 +42,7 @@ const fuego = new Fuego(firebaseConfig);
 
 const App = ({ Component, pageProps, children }) => {
   // const router = useRouter()
-
-  useEffect(() => {
-    if (process.env.NODE_ENV === 'production') {
-      // Fathom.load(process.env.NEXT_PUBLIC_FATHOM_SITE_ID, {
-      //   includedDomains: ['aitebet.com']
-      // })
-    }
-  }, []);
+  const fuego = new Fuego(firebaseConfig);
 
   return (
     <ChakraProvider theme={theme}>
