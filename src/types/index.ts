@@ -1,3 +1,4 @@
+export type LabelValue = { label: string; value: string };
 export interface UserDataProps extends Record<string, any> {
   uid: string;
   email: string;
@@ -5,6 +6,14 @@ export interface UserDataProps extends Record<string, any> {
   name: string;
   nickname: string;
   provider: string;
+}
+
+export interface FriendshipDataProps extends Record<string, any> {
+  receiverId: string;
+  receiverName: string;
+  senderId: string;
+  senderName: string;
+  status: string;
 }
 export interface SportsDbTeamProps extends Record<string, any> {
   idLeague: number;

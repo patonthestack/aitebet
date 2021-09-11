@@ -19,7 +19,8 @@ import {
 
 import { _leaguesData } from '@/data/_leaguesData';
 import { UserDataProps } from 'types/index';
-import { useSportsDB } from '@/hooks/index';
+import { useSportsDB, useUsers } from '@/hooks/index';
+import { useEffect } from 'react';
 
 export interface PoolFormProps {
   userData: UserDataProps;
@@ -32,6 +33,7 @@ export const PoolForm: FC<PoolFormProps> = ({ userData }) => {
 
   const [leagueId, setLeagueId] = useState<number>(0);
   const { scheduleData } = useSportsDB(leagueId);
+  const { multiSelectFriendsList } = useUsers();
 
   const { handleSubmit, errors, formState, control } = useForm();
 
@@ -93,7 +95,7 @@ export const PoolForm: FC<PoolFormProps> = ({ userData }) => {
         <Box>
           <SimpleGrid columns={[1, 2, 3]} spacing={5}>
             <Box my={1}>
-              <FormControl>
+              <FormControl isRequired>
                 <FormLabel htmlFor="leagueId">League</FormLabel>
                 <Controller
                   defaultValue=""
@@ -114,6 +116,7 @@ export const PoolForm: FC<PoolFormProps> = ({ userData }) => {
                   }
                   name="leagueId"
                   control={control}
+                  rules={{ required: true }}
                 />
 
                 {errors.league && (
@@ -122,7 +125,7 @@ export const PoolForm: FC<PoolFormProps> = ({ userData }) => {
               </FormControl>
             </Box>
             <Box my={1}>
-              <FormControl>
+              <FormControl isRequired>
                 <FormLabel htmlFor="matchups">Matchups</FormLabel>
                 <Controller
                   defaultValue=""
@@ -133,10 +136,31 @@ export const PoolForm: FC<PoolFormProps> = ({ userData }) => {
                   name="matchups"
                   options={leagueId > 0 ? scheduleData : []}
                   control={control}
+                  rules={{ required: true }}
                 />
 
                 {errors.matchups && (
                   <FormErrorMessage>Please Select a Matchup</FormErrorMessage>
+                )}
+              </FormControl>
+            </Box>
+            <Box my={1}>
+              <FormControl isRequired>
+                <FormLabel htmlFor="invitedUsers">Invite Friends</FormLabel>
+                <Controller
+                  defaultValue=""
+                  placeholder="Invite Friends"
+                  as={Select}
+                  isMulti
+                  onChange={handleMutliSelectChange}
+                  name="invitedUsers"
+                  options={multiSelectFriendsList}
+                  control={control}
+                  rules={{ required: true }}
+                />
+
+                {errors.matchups && (
+                  <FormErrorMessage>Please Friends to Invite</FormErrorMessage>
                 )}
               </FormControl>
             </Box>

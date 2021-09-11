@@ -21,8 +21,6 @@ export const friendsList: React.FC = () => {
     ],
   });
 
-  console.log(friendRequestsReceived);
-
   const [friendId, setFriendId] = useState<string>('');
   const [buttonValue, setButtonValue] = useState<string>('');
 
@@ -41,9 +39,6 @@ export const friendsList: React.FC = () => {
     };
     await update(dataObj);
   };
-
-//   console.log('acceptFriendId', friendId);
-//   console.log('buttonValue', buttonValue);
 
   useEffect(() => {
     if (buttonValue === 'accept' && friendId) {

@@ -9,7 +9,6 @@ export function useSportsDB(leagueId: number) {
 
   function createListFromSportsDBData(scheduleData: SportsDbScheduleProps[]) {
     const newList = [];
-    console.log ({scheduleData})
 
     if (scheduleData.length > 0) {
       scheduleData.map((game) => {
@@ -23,7 +22,7 @@ export function useSportsDB(leagueId: number) {
         });
       });
     }
-    
+
     setScheduleData(newList);
   }
 
@@ -48,10 +47,8 @@ export function useSportsDB(leagueId: number) {
 
   useEffect(() => {
     if (leagueId > 0) {
-      if (
-        typeof leagueScheduleData !== 'undefined'
-      ) {
-        createListFromSportsDBData(leagueScheduleData.events);        
+      if (typeof leagueScheduleData !== 'undefined') {
+        createListFromSportsDBData(leagueScheduleData.events);
       }
     }
   }, [leagueId, leagueScheduleData]);
