@@ -14,7 +14,8 @@
       "@/styles/*": ["styles/*"],
       "@/utils/*": ["utils/*"],
       "@/helpers/*": ["helpers/*"],
-      "@/hooks/*": ["hooks/*"]
+      "@/hooks/*": ["hooks/*"],
+      "@/types/*": ["types/*"]
     },
     "allowJs": true,
     "skipLibCheck": true,

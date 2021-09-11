@@ -48,10 +48,6 @@ const NbaIndex: React.FC = () => {
     fetcher,
   );
 
-  console.log('nbaTeamsData: ', nbaTeamsData);
-  console.log('nbaScheduleData: ', nbaScheduleData);
-  console.log('nbaLiveScoresData: ', nbaLiveScoresData);
-
   return (
     <>
       {user && (
