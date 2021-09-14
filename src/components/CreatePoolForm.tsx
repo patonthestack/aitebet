@@ -18,20 +18,21 @@ import {
 } from '@chakra-ui/react';
 
 import { _leaguesData } from '@/data/_leaguesData';
-import { UserDataProps } from 'types/index';
+import { LabelValue, UserDataProps } from 'types/index';
 import { useSportsDB, useUsers } from '@/hooks/index';
 import { useEffect } from 'react';
 
-export interface PoolFormProps {
+export interface CreatePoolFormProps {
   userData: UserDataProps;
 }
 
-export const PoolForm: FC<PoolFormProps> = ({ userData }) => {
+export const CreatePoolForm: FC<CreatePoolFormProps> = ({ userData }) => {
   const toast = useToast();
   const router = useRouter();
   const selectRef = useRef();
 
   const [leagueId, setLeagueId] = useState<number>(0);
+  const [leagueName, setLeagueName] = useState<string>();
   const { scheduleData } = useSportsDB(leagueId);
   const { multiSelectFriendsList } = useUsers();
 
@@ -42,6 +43,7 @@ export const PoolForm: FC<PoolFormProps> = ({ userData }) => {
   const onCreatePool = async (data: any) => {
     const dataObj = {
       ...data,
+      leagueName: leagueName,
       owner: userData.uid,
       createdAt: new Date().toISOString(),
     };
@@ -71,7 +73,8 @@ export const PoolForm: FC<PoolFormProps> = ({ userData }) => {
 
   // handle league dropdown
   const handleLeagueSelect = (e: any) => {
-    setLeagueId(e.target.value);
+    setLeagueId(e);
+    setLeagueName(e.target[e.target.selectedIndex].label);
   };
 
   // handle multi select dropdown
@@ -108,7 +111,12 @@ export const PoolForm: FC<PoolFormProps> = ({ userData }) => {
                       onClick={(e) => handleLeagueSelect(e)}
                     >
                       {_leaguesData.map((league) => (
-                        <option key={league.value} value={league.value}>
+                        <option
+                          key={league.value}
+                          value={league.value}
+                          label={league.label}
+                          // onClick={() => handleLeagueSelect(league)}
+                        >
                           {league.label}
                         </option>
                       ))}
@@ -160,7 +168,7 @@ export const PoolForm: FC<PoolFormProps> = ({ userData }) => {
                 />
 
                 {errors.matchups && (
-                  <FormErrorMessage>Please Friends to Invite</FormErrorMessage>
+                  <FormErrorMessage>Select Friends to Invite</FormErrorMessage>
                 )}
               </FormControl>
             </Box>

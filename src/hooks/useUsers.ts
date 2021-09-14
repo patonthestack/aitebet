@@ -1,7 +1,7 @@
 import { useAuthUser } from '@/lib/useAuthUser';
 import { FriendshipDataProps, LabelValue, UserDataProps } from 'types';
-import { revalidateCollection, useCollection } from '@nandorojo/swr-firestore';
-import { useEffect, useState } from 'react';
+import { useCollection } from '@nandorojo/swr-firestore';
+import { useEffect } from 'react';
 
 export const useUsers = () => {
   const { userData } = useAuthUser();
@@ -60,28 +60,29 @@ export const useUsers = () => {
   const friendsList = Array.from(new Set<FriendshipDataProps>());
   const fetchAllFriendsData = async () => {
     if (!allUsersDataLoading) {
-      allUsersData.map((user: UserDataProps) => {
-        acceptedSentRequests.map((sentTo) => {
-          if (user.uid == sentTo.receiverId) {
-            friendsList.push(sentTo);
-            friendsUserDataList.push(user);
-            multiSelectFriendsList.push({
-              label: `${user.name || user.nickname}`,
-              value: `${user.uid}`,
-            });
-          }
+      allUsersData &&
+        allUsersData?.map((user: UserDataProps) => {
+          acceptedSentRequests.map((sentTo) => {
+            if (user.uid == sentTo.receiverId) {
+              friendsList.push(sentTo);
+              friendsUserDataList.push(user);
+              multiSelectFriendsList.push({
+                label: `${user.name || user.nickname}`,
+                value: `${user.uid}`,
+              });
+            }
+          });
+          acceptedReceivedRequests.map((receivedFrom) => {
+            if (user.uid == receivedFrom.senderId) {
+              friendsList.push(receivedFrom);
+              friendsUserDataList.push(user);
+              multiSelectFriendsList.push({
+                label: `${user.name || user.nickname}`,
+                value: `${user.uid}`,
+              });
+            }
+          });
         });
-        acceptedReceivedRequests.map((receivedFrom) => {
-          if (user.uid == receivedFrom.senderId) {
-            friendsList.push(receivedFrom);
-            friendsUserDataList.push(user);
-            multiSelectFriendsList.push({
-              label: `${user.name || user.nickname}`,
-              value: `${user.uid}`,
-            });
-          }
-        });
-      });
     }
   };
 
