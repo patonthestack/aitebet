@@ -42,7 +42,7 @@ export const Table = (props) => {
     <Box
       as="table"
       textAlign="left"
-      backgroundColor="white"
+      backgroundColor="brand.0"
       ml={0}
       mr={0}
       borderRadius={8}

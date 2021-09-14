@@ -6,7 +6,7 @@ import { useRequireAuth } from 'lib/useRequireAuth';
 import { Box, Button, Flex, Heading, SimpleGrid } from '@chakra-ui/react';
 import { useDocument } from '@nandorojo/swr-firestore';
 
-const ManageBetsIndex: React.FC = () => {
+const GeneralBetsIndex: React.FC = () => {
   const { user } = useAuth(); // firebase authentication
   const { auth } = useRequireAuth();
   const router = useRouter();
@@ -86,11 +86,11 @@ const ManageBetsIndex: React.FC = () => {
                     variant="outline"
                     onClick={() =>
                       router
-                        .push('/dashboard/manage-bets/general-bets')
+                        .push('/dashboard/manage-bets/general-bets/create')
                         .then(() => window.scrollTo(0, 0))
                     }
                   >
-                    General Bets
+                    Create a General Bet
                   </Button>
                   <Button
                     mx={2}
@@ -98,11 +98,11 @@ const ManageBetsIndex: React.FC = () => {
                     variant="outline"
                     onClick={() =>
                       router
-                        .push('/dashboard/manage-bets/pools')
+                        .push('/dashboard/manage-bets/general-bets/view')
                         .then(() => window.scrollTo(0, 0))
                     }
                   >
-                    Pools
+                    View General Bets
                   </Button>
                 </Box>
               </Box>
@@ -114,4 +114,4 @@ const ManageBetsIndex: React.FC = () => {
   );
 };
 
-export default ManageBetsIndex;
+export default GeneralBetsIndex;

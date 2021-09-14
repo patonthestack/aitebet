@@ -1,21 +1,21 @@
 import React from 'react';
-import { Layout, PoolForm } from 'components/index';
+import { Layout, CreatePoolForm } from 'components/index';
 import { useAuthUser } from 'lib/useAuthUser';
 
-const PoolIndexPage: React.FC = () => {
+const CreatePoolPage: React.FC = () => {
   const { userData } = useAuthUser();
 
   return (
     <Layout
       title="Create Pool"
       description="Create Pool"
-      canonical="/dashboard/manage-bets/create/pool"
+      canonical="/dashboard/manage-bets/pools/create"
       hasNavbar
       hasFooter
     >
-      <PoolForm userData={userData} />
+      <CreatePoolForm userData={userData} />
     </Layout>
   );
 };
 
-export default PoolIndexPage;
+export default CreatePoolPage;

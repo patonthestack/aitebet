@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAuth } from 'lib/auth';
 import { useRouter } from 'next/router';
 import { useDocument } from '@nandorojo/swr-firestore';
+import { UserDataProps } from '../types';
 
 export function useAuthUser(redirectUrl = '/auth/sign-in') {
   const [isOnline, setIsOnline] = useState<boolean>(false);
@@ -16,7 +17,7 @@ export function useAuthUser(redirectUrl = '/auth/sign-in') {
     loading: userLoading,
     error: userError,
     update,
-  } = useDocument<any>(`users/${user?.uid}`, {
+  } = useDocument<UserDataProps>(`users/${user?.uid}`, {
     listen: false,
   });
 

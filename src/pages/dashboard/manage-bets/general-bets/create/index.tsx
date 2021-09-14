@@ -3,7 +3,7 @@ import React from 'react';
 import { useAuthUser } from 'lib/useAuthUser';
 import { Box } from '@chakra-ui/react';
 
-const BetIndexPage: React.FC = () => {
+const CreateGeneralBetPage: React.FC = () => {
   const { userData } = useAuthUser();
 
   return (
@@ -26,4 +26,4 @@ const BetIndexPage: React.FC = () => {
   );
 };
 
-export default BetIndexPage;
+export default CreateGeneralBetPage;

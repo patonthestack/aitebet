@@ -1,8 +1,8 @@
-export type LabelValue = { label: string; value: string };
+export type LabelValue = { label: string; value: string | number };
 export interface UserDataProps extends Record<string, any> {
   uid: string;
   email: string;
-  modifiedAt: Date;
+  modifiedAt: string;
   name: string;
   nickname: string;
   provider: string;
@@ -14,6 +14,15 @@ export interface FriendshipDataProps extends Record<string, any> {
   senderId: string;
   senderName: string;
   status: string;
+}
+
+export interface PoolDataProps extends Record<string, any> {
+  createdAt: string;
+  invitedUsers: LabelValue[];
+  leagueId: string;
+  leagueName: string;
+  matchups: LabelValue[];
+  owner: string;
 }
 export interface SportsDbTeamProps extends Record<string, any> {
   idLeague: number;
