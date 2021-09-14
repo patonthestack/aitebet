@@ -73,7 +73,7 @@ export const CreatePoolForm: FC<CreatePoolFormProps> = ({ userData }) => {
 
   // handle league dropdown
   const handleLeagueSelect = (e: any) => {
-    setLeagueId(e);
+    setLeagueId(e.target.value);
     setLeagueName(e.target[e.target.selectedIndex].label);
   };
 
