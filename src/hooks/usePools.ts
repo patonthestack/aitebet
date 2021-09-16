@@ -1,13 +1,13 @@
 import { useAuthUser } from '@/lib/useAuthUser';
-import { PoolDataProps, LabelValue, UserDataProps } from 'types';
+import { PoolDataProps } from 'types';
 import { useCollection, useDocument } from '@nandorojo/swr-firestore';
-import { useEffect } from 'react';
 
 export const usePools = (poolId?: string | string[]) => {
   const { userData } = useAuthUser();
 
   const { data: poolsOwnedByUser } = useCollection<PoolDataProps>('pools', {
     where: ['owner', '==', userData && userData.uid],
+    // orderBy: ['createdAt', 'desc'],
     listen: false,
   });
 

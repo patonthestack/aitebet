@@ -1,14 +1,11 @@
-import React, { FC, useState, useRef } from 'react';
-import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/router';
-import NextLink from 'next/link';
-import { useToast, Box, Heading, Divider, Text } from '@chakra-ui/react';
+import React, { FC } from 'react';
+import { Box, Heading, Divider, Text } from '@chakra-ui/react';
 
 import { _leaguesData } from '@/data/_leaguesData';
 import { LabelValue, PoolDataProps } from 'types/index';
-import { useSportsDB, useUsers } from '@/hooks/index';
 import { Table, Td, Th, Tr } from './Table';
 import SkeletonDocumentsTable from './SkeletonDocumentsTable';
+import { ViewMatchup } from '@/components/index';
 
 export interface ViewPoolSheetProps {
   poolData: PoolDataProps;
@@ -24,7 +21,7 @@ export const ViewPoolSheet: FC<ViewPoolSheetProps> = ({ poolData }) => {
         <Divider borderColor="grayAlpha.300" />
       </Box>
       <Box px={{ base: 0, md: 8 }}>
-        {poolData.matchups?.length > 0 ? (
+        {poolData && poolData.matchups?.length > 0 ? (
           <Table boxShadow="none" w="full">
             <thead>
               <Tr
@@ -35,6 +32,9 @@ export const ViewPoolSheet: FC<ViewPoolSheetProps> = ({ poolData }) => {
               >
                 <Th color="gray.600" width="50px">
                   Matchup Name
+                </Th>
+                <Th color="gray.600" width="20px">
+                  Teams
                 </Th>
                 <Th color="gray.600" width="20px">
                   TODO Map through users' names here
@@ -82,6 +82,24 @@ export const ViewPoolSheet: FC<ViewPoolSheetProps> = ({ poolData }) => {
                               matchup.label.indexOf('@'),
                             )}
                           </Text>
+                        </Td>
+                        <Td
+                          p="2"
+                          borderBottom="none"
+                          data-label="League"
+                          _before={{
+                            '@media (max-width:767px)': {
+                              content: 'attr(data-label)',
+                              display: 'inline-block',
+                              fontWeight: 'bold',
+                            },
+                          }}
+                          display={{
+                            base: 'block',
+                            md: 'table-cell',
+                          }}
+                        >
+                          <ViewMatchup eventId={matchup.value}></ViewMatchup>
                         </Td>
                         <Td
                           p="2"

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Layout, ViewPoolSheet } from 'components/index';
-import { useAuthUser } from 'lib/useAuthUser';
 import { usePools } from '@/hooks/usePools';
 import { useRouter } from 'next/router';
 

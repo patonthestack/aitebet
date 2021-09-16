@@ -18,9 +18,8 @@ import {
 } from '@chakra-ui/react';
 
 import { _leaguesData } from '@/data/_leaguesData';
-import { LabelValue, UserDataProps } from 'types/index';
+import { UserDataProps } from 'types/index';
 import { useSportsDB, useUsers } from '@/hooks/index';
-import { useEffect } from 'react';
 
 export interface CreatePoolFormProps {
   userData: UserDataProps;
@@ -33,7 +32,7 @@ export const CreatePoolForm: FC<CreatePoolFormProps> = ({ userData }) => {
 
   const [leagueId, setLeagueId] = useState<number>(0);
   const [leagueName, setLeagueName] = useState<string>();
-  const { scheduleData } = useSportsDB(leagueId);
+  const { scheduleData } = useSportsDB({ leagueId: leagueId });
   const { multiSelectFriendsList } = useUsers();
 
   const { handleSubmit, errors, formState, control } = useForm();

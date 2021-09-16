@@ -1,12 +1,9 @@
-import React, { FC, useState, useRef } from 'react';
-import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/router';
+import React, { FC } from 'react';
 import NextLink from 'next/link';
-import { useToast, Box, Heading, Divider, Text } from '@chakra-ui/react';
+import { Box, Heading, Divider, Text } from '@chakra-ui/react';
 
 import { _leaguesData } from '@/data/_leaguesData';
 import { PoolDataProps } from 'types/index';
-import { useSportsDB, useUsers } from '@/hooks/index';
 import { Table, Td, Th, Tr } from './Table';
 import SkeletonDocumentsTable from './SkeletonDocumentsTable';
 
