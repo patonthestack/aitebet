@@ -15,12 +15,12 @@ import {
   Heading,
   Divider,
   Select as ChakraSelect,
+  Input,
 } from '@chakra-ui/react';
 
 import { _leaguesData } from '@/data/_leaguesData';
 import { LabelValue, UserDataProps } from 'types/index';
 import { useSportsDB, useUsers } from '@/hooks/index';
-import { useEffect } from 'react';
 
 export interface CreatePoolFormProps {
   userData: UserDataProps;
@@ -33,7 +33,7 @@ export const CreatePoolForm: FC<CreatePoolFormProps> = ({ userData }) => {
 
   const [leagueId, setLeagueId] = useState<number>(0);
   const [leagueName, setLeagueName] = useState<string>();
-  const { scheduleData } = useSportsDB(leagueId);
+  const { scheduleData } = useSportsDB({ leagueId: leagueId });
   const { multiSelectFriendsList } = useUsers();
 
   const { handleSubmit, errors, formState, control } = useForm();
@@ -41,9 +41,14 @@ export const CreatePoolForm: FC<CreatePoolFormProps> = ({ userData }) => {
   const { add } = useCollection<any>(userData ? 'pools' : null);
 
   const onCreatePool = async (data: any) => {
+    const invitedUsers: string[] = [];
+    data.invitedUsers?.map((user: any) => {
+      invitedUsers.push(user.value);
+    });
     const dataObj = {
       ...data,
       leagueName: leagueName,
+      invitedUsers: invitedUsers,
       owner: userData.uid,
       createdAt: new Date().toISOString(),
     };
@@ -96,7 +101,20 @@ export const CreatePoolForm: FC<CreatePoolFormProps> = ({ userData }) => {
         </Box>
 
         <Box>
-          <SimpleGrid columns={[1, 2, 3]} spacing={5}>
+          <SimpleGrid columns={[1, 2, 4, 4]} spacing={5}>
+            <Box my={1}>
+              <FormControl isRequired>
+                <FormLabel htmlFor="poolName">Pool Name</FormLabel>
+                <Controller
+                  defaultValue=""
+                  placeholder="Enter Pool Name"
+                  as={<Input />}
+                  name="poolName"
+                  control={control}
+                  rules={{ required: true }}
+                />
+              </FormControl>
+            </Box>
             <Box my={1}>
               <FormControl isRequired>
                 <FormLabel htmlFor="leagueId">League</FormLabel>
@@ -115,7 +133,6 @@ export const CreatePoolForm: FC<CreatePoolFormProps> = ({ userData }) => {
                           key={league.value}
                           value={league.value}
                           label={league.label}
-                          // onClick={() => handleLeagueSelect(league)}
                         >
                           {league.label}
                         </option>

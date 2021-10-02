@@ -1,26 +1,34 @@
-import React, { FC, useState, useRef } from 'react';
-import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/router';
+import React, { FC } from 'react';
 import NextLink from 'next/link';
-import { useToast, Box, Heading, Divider, Text } from '@chakra-ui/react';
-
+import { Box, Heading, Divider, Text } from '@chakra-ui/react';
 import { _leaguesData } from '@/data/_leaguesData';
-import { PoolDataProps } from 'types/index';
-import { useSportsDB, useUsers } from '@/hooks/index';
+import { PoolDataProps, UserDataProps } from 'types/index';
 import { Table, Td, Th, Tr } from './Table';
 import SkeletonDocumentsTable from './SkeletonDocumentsTable';
+import { isPoolOwner } from '../helpers';
 
 export interface ViewPoolTableProps {
   poolDataList: PoolDataProps[];
+  type?: 'owned' | 'invited' | 'historical' | 'live';
 }
 
-export const ViewPoolTable: FC<ViewPoolTableProps> = ({ poolDataList }) => {
+export const ViewPoolTable: FC<ViewPoolTableProps> = ({
+  poolDataList,
+  type,
+}) => {
   return (
     <Box>
       <Box my={5}>
         <Heading my={3} size="md">
-          Pools Owned (to be split later between owned, invited and currently
-          in)
+          {type === 'owned'
+            ? 'Pools Owned'
+            : 'invited'
+            ? 'Pool Invitations'
+            : 'historical'
+            ? 'Historical Pools'
+            : 'live'
+            ? 'Live Pools'
+            : ''}
         </Heading>
         <Divider borderColor="grayAlpha.300" />
       </Box>
@@ -66,7 +74,7 @@ export const ViewPoolTable: FC<ViewPoolTableProps> = ({ poolDataList }) => {
                       >
                         <Td
                           p="2"
-                          data-label="Pool Name"
+                          // data-label="Pool Name"
                           _before={{
                             '@media (max-width:767px)': {
                               content: 'attr(data-label)',
@@ -81,21 +89,21 @@ export const ViewPoolTable: FC<ViewPoolTableProps> = ({ poolDataList }) => {
                           borderBottom="none"
                         >
                           <NextLink
-                            href={`/dashboard/manage-bets/pools/view/${pool.id}`}
+                            href={`/dashboard/manage-bets/pools/view/owned/${pool.id}`}
                           >
                             <a
                               style={{
                                 textDecoration: 'underline',
                               }}
                             >
-                              TODO Pool name to go here
+                              {pool.poolName}
                             </a>
                           </NextLink>
                         </Td>
                         <Td
                           p="2"
                           borderBottom="none"
-                          data-label="League"
+                          // data-label="League"
                           _before={{
                             '@media (max-width:767px)': {
                               content: 'attr(data-label)',
@@ -115,7 +123,7 @@ export const ViewPoolTable: FC<ViewPoolTableProps> = ({ poolDataList }) => {
                         <Td
                           p="2"
                           borderBottom="none"
-                          data-label="Period"
+                          // data-label="Period"
                           _before={{
                             '@media (max-width:767px)': {
                               content: 'attr(data-label)',
