@@ -23,6 +23,7 @@ export interface PoolDataProps extends Record<string, any> {
   leagueName: string;
   matchups: LabelValue[];
   owner: string;
+  poolName: string;
 }
 export interface SportsDbTeamProps extends Record<string, any> {
   idLeague: number;

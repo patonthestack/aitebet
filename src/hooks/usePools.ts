@@ -11,6 +11,12 @@ export const usePools = (poolId?: string | string[]) => {
     listen: false,
   });
 
+  const { data: poolsInvitedByUser } = useCollection<PoolDataProps>('pools', {
+    where: ['invitedUsers', 'array-contains', userData && userData.uid],
+    // orderBy: ['createdAt', 'desc'],
+    listen: false,
+  });
+
   const { data: poolData, update } = useDocument<PoolDataProps>(
     `pools/${poolId}`,
     {
@@ -20,6 +26,7 @@ export const usePools = (poolId?: string | string[]) => {
 
   return {
     poolsOwnedByUser,
+    poolsInvitedByUser,
     poolData,
   };
 };

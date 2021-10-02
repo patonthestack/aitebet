@@ -2,9 +2,11 @@ import React from 'react';
 import { Layout, ViewPoolSheet } from 'components/index';
 import { usePools } from '@/hooks/usePools';
 import { useRouter } from 'next/router';
+import { useAuthUser } from '@/lib/useAuthUser';
 
 const ViewPoolsPage: React.FC = () => {
   const router = useRouter();
+  const { userData } = useAuthUser();
   const { poolData } = usePools(router.query.poolId);
 
   return (
@@ -15,7 +17,7 @@ const ViewPoolsPage: React.FC = () => {
       hasNavbar
       hasFooter
     >
-      <ViewPoolSheet poolData={poolData} />
+      <ViewPoolSheet userData={userData} poolData={poolData} />
     </Layout>
   );
 };

@@ -20,14 +20,12 @@ const PoolsIndex: React.FC = () => {
     <>
       {user && (
         <Layout
-          title="Sports Schedules"
-          description="Sports Schedules"
-          canonical="/sports-schedules"
+          title="Pools"
+          description="Pools"
+          canonical="/dashboard/manage-bets/pools"
           hasNavbar
           hasFooter
           schemaData={null}
-          // isActive={userData?.user._isActive}
-          // isBanned={userData?.user._isBanned}
         >
           <Box
             w={['0px', '300px', '300px']}
@@ -76,7 +74,7 @@ const PoolsIndex: React.FC = () => {
                     pb={4}
                     mx={5}
                   >
-                    Bet Type
+                    Pool Type
                   </Heading>
                 </Box>
                 <Box mx={5} spacing={3}>

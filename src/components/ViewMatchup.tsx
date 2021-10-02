@@ -1,16 +1,28 @@
-import React, { FC, useState } from 'react';
-import { Radio, RadioGroup, Stack } from '@chakra-ui/react';
+import React, { ChangeEvent, FC, useState } from 'react';
+import {
+  Box,
+  FormControl,
+  Radio,
+  RadioGroup,
+  SimpleGrid,
+  Spinner,
+  Stack,
+} from '@chakra-ui/react';
 
 import { _leaguesData } from '@/data/_leaguesData';
-import { SportsDbTeamProps } from 'types/index';
+import { LabelValue, SportsDbTeamProps } from 'types/index';
 import { useSportsDB } from '@/hooks/index';
 import { useEffect } from 'react';
 
 export interface ViewMatchupProps {
   eventId: string | number;
+  onHandleRadioChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const ViewMatchup: FC<ViewMatchupProps> = ({ eventId }) => {
+export const ViewMatchup: FC<ViewMatchupProps> = ({
+  eventId,
+  onHandleRadioChange,
+}) => {
   const [homeTeamId, setHomeTeamId] = useState<number>(0);
   const [awayTeamId, setAwayTeamId] = useState<number>(0);
   const [homeTeam, setHomeTeam] = useState<SportsDbTeamProps>(); // TODO set types for these team data and event data
@@ -21,15 +33,17 @@ export const ViewMatchup: FC<ViewMatchupProps> = ({ eventId }) => {
     awayTeamId: awayTeamId,
   });
 
-  const event = eventData.events[0];
+  const event = eventData && eventData?.events[0];
 
   const findTeamByEventId = () => {
-    setHomeTeamId(event.idHomeTeam);
-    setAwayTeamId(event.idAwayTeam);
+    setHomeTeamId(event?.idHomeTeam);
+    setAwayTeamId(event?.idAwayTeam);
   };
 
   useEffect(() => {
-    findTeamByEventId();
+    if (event) {
+      findTeamByEventId();
+    }
   }, [event, homeTeamId, awayTeamId]);
 
   useEffect(() => {
@@ -45,11 +59,29 @@ export const ViewMatchup: FC<ViewMatchupProps> = ({ eventId }) => {
   }, [awayTeamData]);
 
   return (
-    <RadioGroup>
-      <Stack direction="row">
-        <Radio value={homeTeam.idTeam}>{homeTeam && homeTeam.strTeam}</Radio>
-        <Radio value={awayTeam.idTeam}>{awayTeam && awayTeam.strTeam}</Radio>
-      </Stack>
-    </RadioGroup>
+    <Box>
+      {homeTeam && awayTeam ? (
+        <RadioGroup>
+          <Stack direction="row" spacing={4}>
+            <Radio
+              value={homeTeam?.idTeam}
+              name={String(eventId)}
+              onChange={(e) => onHandleRadioChange(e)}
+            >
+              {homeTeam?.strTeam}
+            </Radio>
+            <Radio
+              value={awayTeam?.idTeam}
+              name={String(eventId)}
+              onChange={(e) => onHandleRadioChange(e)}
+            >
+              {awayTeam?.strTeam}
+            </Radio>
+          </Stack>
+        </RadioGroup>
+      ) : (
+        <Spinner />
+      )}
+    </Box>
   );
 };
