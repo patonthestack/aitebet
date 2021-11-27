@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC } from 'react';
+import React, { ChangeEvent, FC, useState } from 'react';
 import {
   Box,
   Heading,
@@ -19,6 +19,8 @@ import { useForm } from 'react-hook-form';
 import { useDocument } from '@nandorojo/swr-firestore';
 import { useToast } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
+import { usePools } from 'hooks/usePools';
+import { useEffect } from 'react';
 
 export interface ViewPoolSheetProps {
   userData: UserDataProps;
@@ -32,9 +34,14 @@ export const ViewPoolSheet: FC<ViewPoolSheetProps> = ({
   const { handleSubmit, errors, formState, control, register } = useForm();
   const toast = useToast();
   const router = useRouter();
+  const [acceptedUsersArray, setAcceptedUsersArray] = useState<String[]>(
+    poolData?.acceptedUsers,
+  );
+
   const { data: userPoolData, set } = useDocument<any>(
     `users/${userData?.uid}/userPools/${poolData?.id}`,
   );
+  const { updatePoolData } = usePools(poolData?.id);
   const onSubmitPicks = (data) => {
     console.log({ data });
     const submissionsArray =
@@ -46,6 +53,11 @@ export const ViewPoolSheet: FC<ViewPoolSheetProps> = ({
 
     submissionsArray.push(dataObj);
     set({ submissions: submissionsArray });
+
+    if (acceptedUsersArray.indexOf(userData?.uid) === -1) {
+      acceptedUsersArray.push(userData?.uid);
+      updatePoolData({ acceptedUsers: acceptedUsersArray });
+    }
 
     toast({
       title: 'Success!',
@@ -75,6 +87,10 @@ export const ViewPoolSheet: FC<ViewPoolSheetProps> = ({
       teamId: e.target.value,
     });
   };
+
+  useEffect(() => {
+    setAcceptedUsersArray(poolData?.acceptedUsers);
+  }, [poolData]);
 
   return (
     <Box>

@@ -22,11 +22,11 @@ export const ViewPoolTable: FC<ViewPoolTableProps> = ({
         <Heading my={3} size="md">
           {type === 'owned'
             ? 'Pools Owned'
-            : 'invited'
+            : type === 'invited'
             ? 'Pool Invitations'
-            : 'historical'
+            : type === 'historical'
             ? 'Historical Pools'
-            : 'live'
+            : type === 'live'
             ? 'Live Pools'
             : ''}
         </Heading>
