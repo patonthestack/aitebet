@@ -1,19 +1,9 @@
 import { Button, Stack } from '@chakra-ui/react';
 import { FcGoogle } from '@meronex/icons/fc';
 import { useAuth } from 'lib/auth';
-import { useRouter } from 'next/router';
 
 export const LoginButtons = () => {
   const auth = useAuth();
-  const router = useRouter();
-
-  // const handleSignIn = () => {
-  //   if (user) {
-  //     router.push('/dashboard');
-  //   } else {
-  //     router.push('/sign-in');
-  //   }
-  // };
 
   return (
     <Stack direction={['column', 'row']}>

@@ -1,8 +1,22 @@
 // @ts-nocheck
 import { Box, Flex, Stack, Heading } from '@chakra-ui/react';
 import { LoginButtons } from '@/components/index';
+import { useAuthUser } from 'lib/useAuthUser';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 const SignInPage = () => {
+  const { user } = useAuthUser();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user) {
+      router.push('/');
+    } else {
+      router.push('/auth/sign-in');
+    }
+  }, [user]);
+
   return (
     <Flex align="center" justify="center" h="100vh" backgroundColor="gray.100">
       <Stack

@@ -1,7 +1,9 @@
 import React from 'react';
-import { Box, Flex, Heading } from '@chakra-ui/react';
+import { Box, Center, Flex, Heading, Text } from '@chakra-ui/react';
+import { useAuthUser } from '@/lib/useAuthUser';
 
 export const TopNavigation: React.FC<any> = () => {
+  const { signout } = useAuthUser();
   return (
     <>
       <Flex
@@ -15,10 +17,13 @@ export const TopNavigation: React.FC<any> = () => {
         color="gray.600"
         bg="white"
       >
-        <Box>
+        <Center>
           <Heading as="h1" size="md">
             AITE BET
           </Heading>
+        </Center>
+        <Box pos="fixed" right={12} onClick={signout} cursor="pointer">
+          <Text>Logout</Text>
         </Box>
       </Flex>
     </>
