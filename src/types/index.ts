@@ -19,6 +19,7 @@ export interface FriendshipDataProps extends Record<string, any> {
 export interface PoolDataProps extends Record<string, any> {
   createdAt: string;
   invitedUsers: LabelValue[];
+  acceptedUsers: String[];
   leagueId: string;
   leagueName: string;
   matchups: LabelValue[];

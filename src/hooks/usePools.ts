@@ -17,16 +17,34 @@ export const usePools = (poolId?: string | string[]) => {
     listen: false,
   });
 
-  const { data: poolData, update } = useDocument<PoolDataProps>(
+  const { data: poolsAcceptedByUser } = useCollection<PoolDataProps>('pools', {
+    where: ['acceptedUsers', 'array-contains', userData && userData.uid],
+    // orderBy: ['createdAt', 'desc'],
+    listen: false,
+  });
+
+  const { data: poolData, update: updatePoolData } = useDocument<PoolDataProps>(
     `pools/${poolId}`,
     {
       listen: false,
     },
   );
 
+  const { data: poolSubmissionsByUser } = useCollection<any>(
+    `users/${userData?.uid}/userPools`,
+  );
+
+  const { data: liveUserPoolsData } = useCollection<any>(
+    `users/${userData?.uid}/userPools`,
+  );
+
   return {
     poolsOwnedByUser,
     poolsInvitedByUser,
+    poolsAcceptedByUser,
     poolData,
+    updatePoolData,
+    poolSubmissionsByUser,
+    liveUserPoolsData,
   };
 };
