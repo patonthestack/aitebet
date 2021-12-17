@@ -38,6 +38,7 @@ export const Meta: React.FC<LayoutProps> = ({
       <meta content="#ffffff" name="theme-color" />
       <meta content="#ffffff" name="msapplication-TileColor" />
       <meta content="/favicons/browserconfig.xml" name="msapplication-config" />
+      {/* make href down below the aite bet svg file */}
       <link href="/favicons/favicon.ico" rel="shortcut icon" />
       <link href="/favicons/site.webmanifest" rel="manifest" />
       <link

@@ -1,0 +1,61 @@
+export type LabelValue = { label: string; value: string | number };
+export interface UserDataProps extends Record<string, any> {
+  uid: string;
+  email: string;
+  modifiedAt: string;
+  name: string;
+  nickname: string;
+  provider: string;
+}
+
+export interface FriendshipDataProps extends Record<string, any> {
+  receiverId: string;
+  receiverName: string;
+  senderId: string;
+  senderName: string;
+  status: string;
+}
+
+export interface PoolDataProps extends Record<string, any> {
+  createdAt: string;
+  invitedUsers: LabelValue[];
+  acceptedUsers: String[];
+  leagueId: string;
+  leagueName: string;
+  matchups: LabelValue[];
+  owner: string;
+  poolName: string;
+}
+export interface SportsDbTeamProps extends Record<string, any> {
+  idLeague: number;
+  idTeam: number;
+  strLeague: string;
+  strLocked: string;
+  strSport: string;
+  strTeam: string;
+  strTeamBadge: string;
+  strTeamLogo: string;
+  strTeamShort: string;
+}
+
+export interface SportsDbScheduleProps extends Record<string, any> {
+  dateEvent: Date;
+  idAwayTeam: number;
+  idEvent: number;
+  idHomeTeam: number;
+  idLeague: number;
+  intRoud: number;
+  strAwayTeam: string;
+  strEvent: string;
+  strEventAlternate: string;
+  strHomeTeam: string;
+  strLeague: string;
+  strLocked: string;
+  strResult: string;
+  strSeason: string;
+  strSport: string;
+  strStatus: string;
+  strTimestamp: Date;
+}
+
+export interface SportsDbLiveScoreProps extends Record<string, any> {}

@@ -1,13 +1,15 @@
 // aiteBet Helpers
 
+import { PoolDataProps, UserDataProps } from '../types';
+
 // Check if valid URL - for jobs and rentals
 export function validURL(str) {
   var pattern = new RegExp(
     '^(https?:\\/\\/)?' + // protocol
-    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
-    '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-    '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
       '(\\#[-a-z\\d_]*)?$',
     'i',
   ); // fragment locator
@@ -31,7 +33,7 @@ export function slugify(str) {
 // Turn slug 'some-slug-thing' into 'Some-Slug-Thing'
 export function slugifyCap(str) {
   let arr = str.split('-');
-  arr.forEach(function(item, index) {
+  arr.forEach(function (item, index) {
     arr[index] = item.replace(item[0], item[0].toUpperCase());
   });
 
@@ -41,7 +43,7 @@ export function slugifyCap(str) {
 // Unslug 'some-slug-thing' into 'Some Slug Thing'
 export function unSlugify(str) {
   let arr = str.split('-');
-  arr.forEach(function(item, index) {
+  arr.forEach(function (item, index) {
     arr[index] = item.replace(item[0], item[0].toUpperCase());
   });
 
@@ -50,13 +52,7 @@ export function unSlugify(str) {
 
 // Random Color String
 export function randomColor() {
-  return (
-    '#' +
-    Math.random()
-      .toString(16)
-      .slice(2, 8)
-      .toUpperCase()
-  );
+  return '#' + Math.random().toString(16).slice(2, 8).toUpperCase();
 }
 
 // Trim a long string
@@ -91,4 +87,10 @@ export function formatDate(date: string) {
     ' ' +
     timeString
   );
+}
+
+export function isPoolOwner(userData: UserDataProps, poolData: PoolDataProps) {
+  if (userData?.uid == poolData?.owner) {
+    return true;
+  }
 }

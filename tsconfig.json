@@ -14,7 +14,8 @@
       "@/styles/*": ["styles/*"],
       "@/utils/*": ["utils/*"],
       "@/helpers/*": ["helpers/*"],
-      "@/hooks/*": ["hooks/*"]
+      "@/hooks/*": ["hooks/*"],
+      "@/types/*": ["types/*"]
     },
     "allowJs": true,
     "skipLibCheck": true,
@@ -32,7 +33,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/pages/video-chat.js", "src/lib/auth.js"  ],
+, "src/styles/theme.js", "src/styles/space.js", "src/styles/sizes.js", "src/styles/global.js", "src/styles/fonts.js", "src/styles/colors.js", "src/styles/breakpoints.js"  ],
   "exclude": [
     "node_modules"
   ]
